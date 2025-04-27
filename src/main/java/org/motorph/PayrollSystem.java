@@ -1,6 +1,8 @@
 package org.motorph;
 
+import org.motorph.controller.PasswordController;
 import org.motorph.controller.ViewController;
+import org.motorph.view.PasswordInterface;
 
 import javax.swing.SwingUtilities;
 
@@ -11,8 +13,9 @@ public class PayrollSystem {
 
         //open the app
         SwingUtilities.invokeLater(() -> {
-            ViewController main = new ViewController();
-            main.startApplication();
+            PasswordController main = new PasswordController();
+            main.start();
+
         });
 
     }
