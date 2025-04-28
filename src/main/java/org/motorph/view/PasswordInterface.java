@@ -1,6 +1,8 @@
 package org.motorph.view;
 
 import org.motorph.PayrollSystem;
+import org.motorph.utility.FontUtililty;
+import org.motorph.utility.ImageUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,13 +12,16 @@ public class PasswordInterface {
     private JTextField userName;
     private JPasswordField password;
     private JButton submitButton;
+    private JPanel entryPanel;
 
     public PasswordInterface(String title) {
         this.userName = new JTextField(16);
         this.password = new JPasswordField(16);
-        this.submitButton = new JButton("Submit");
+        this.submitButton = setUpSubmitButton("Submit");
+        this.entryPanel = entryField(new JLabel());
         this.passwordInterface = setUpFrame(title);
         this.passwordInterface.getRootPane().setDefaultButton(submitButton);
+
 
     }
 
@@ -24,19 +29,23 @@ public class PasswordInterface {
     private JFrame setUpFrame(String title) {
         JFrame passUI = new JFrame(title);
         passUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        passUI.setLocation(1250,120);
-        passUI.setSize(350, 220);
-        passUI.setLayout(new FlowLayout());
+        passUI.setLocation(-1350,200);
+        passUI.setSize(650, 280);
         passUI.setResizable(false);
         passUI.getContentPane().setBackground(Color.WHITE);
 
-        //Change password window Icon
-        ImageIcon icon = new ImageIcon(PayrollSystem.class.getResource("/images/keyIcon.png"));
+
+        //Change login window icon
+        ImageIcon icon = ImageUtility.importImages("/images/keyIcon.png");
         Image img = icon.getImage();
         passUI.setIconImage(img);
 
+        passUI.setLayout(new FlowLayout());
+        //Add banner
+        JLabel resizedLogo = ImageUtility.importedImagesInJLabel("/images/passwordLogo.png");
+        passUI.add(resizedLogo);
         //Add the username and password panel
-        passUI.add(entryField(new JLabel()));
+        passUI.add(entryPanel);
 
         return passUI;
     }
@@ -48,6 +57,7 @@ public class PasswordInterface {
 
         //Set the username and password field
         JPanel panel = new JPanel();
+        panel.setSize(200, 300);
         panel.setLayout(new GridLayout(6,1));
         panel.add(new JLabel());
         panel.add(newRow("Username", userName));
@@ -63,8 +73,11 @@ public class PasswordInterface {
     public void restartField() {
         userName.setText("");
         password.setText("");
-        passwordInterface.getContentPane().removeAll();
-        passwordInterface.add(entryField(new JLabel("Invalid username or password.")));
+        passwordInterface.remove(entryPanel);
+
+        //reinstate
+        entryPanel = entryField(new JLabel("Invalid username or password."));
+        passwordInterface.add(entryPanel);
         passwordInterface.revalidate();
         passwordInterface.repaint();
         passwordInterface.getRootPane().setDefaultButton(submitButton);
@@ -77,7 +90,7 @@ public class PasswordInterface {
         panel.setLayout(new BorderLayout());
         panel.setBackground(new Color(0,0,0,0));
 
-        //Use this if you want to change the font of username and password
+        //Use this to change the font of username and password
         JLabel input = new JLabel(str);
 
         panel.add(input, BorderLayout.WEST);
@@ -101,6 +114,14 @@ public class PasswordInterface {
         char[] pw = password.getPassword();
         System.out.println(pw);
         return new String(pw);
+    }
+
+    public JButton setUpSubmitButton(String text) {
+        JButton btn = new JButton(text);
+        btn.setFont(FontUtililty.important(14));
+//        btn.setBackground(Color.GREEN);
+//        btn.setBorder(BorderFactory.createEtchedBorder());
+        return btn;
     }
 
 

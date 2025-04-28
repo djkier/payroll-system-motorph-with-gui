@@ -19,7 +19,6 @@ public class PasswordController {
         this.app = passwordInterface.getApp();
         this.submitButton = passwordInterface.getSubmitButton();
 
-
         this.submitButton.addActionListener(e ->
                 checkPassword(passwordInterface.getUserNameText()
                         , passwordInterface.getPasswordText()));
