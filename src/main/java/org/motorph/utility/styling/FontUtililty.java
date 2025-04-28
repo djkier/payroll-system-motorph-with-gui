@@ -1,4 +1,4 @@
-package org.motorph.utility;
+package org.motorph.utility.styling;
 
 import java.awt.*;
 

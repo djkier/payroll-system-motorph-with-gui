@@ -1,8 +1,9 @@
 package org.motorph.view;
 
-import org.motorph.PayrollSystem;
-import org.motorph.utility.FontUtililty;
+import org.motorph.utility.styling.EffectsUtility;
+import org.motorph.utility.styling.FontUtililty;
 import org.motorph.utility.ImageUtility;
+import org.motorph.utility.styling.TextFieldUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,8 +16,8 @@ public class PasswordInterface {
     private JPanel entryPanel;
 
     public PasswordInterface(String title) {
-        this.userName = new JTextField(16);
-        this.password = new JPasswordField(16);
+        this.userName = TextFieldUtility.textField(16);
+        this.password = TextFieldUtility.passwordField(16);
         this.submitButton = setUpSubmitButton("Submit");
         this.entryPanel = entryField(new JLabel());
         this.passwordInterface = setUpFrame(title);
@@ -119,8 +120,11 @@ public class PasswordInterface {
     public JButton setUpSubmitButton(String text) {
         JButton btn = new JButton(text);
         btn.setFont(FontUtililty.important(14));
-//        btn.setBackground(Color.GREEN);
+        btn.setBackground(Color.decode("#212143"));
+        btn.setForeground(Color.white);
 //        btn.setBorder(BorderFactory.createEtchedBorder());
+        EffectsUtility.mouseHover(btn, Color.decode("#212143"), Color.decode("#D3D3D9"));
+
         return btn;
     }
 
