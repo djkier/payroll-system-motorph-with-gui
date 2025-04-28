@@ -12,6 +12,7 @@ public class ColorUtility {
     public static Color white = cF("#FFFFFF");
     public static Color graySurface = cF("#D3D3D9");
     public static Color grayBorder = cF("#E0E0E0");
+    public static Color grayTabHover = cF("#E0E0E0");
     public static Color grayDark = cF("#404040");
     public static Color grayLight = cF("#F5F5F5");
 
@@ -26,5 +27,5 @@ public class ColorUtility {
     public static Color violetText = cF("#1A1A36");
     public static Color yellow = cF("#FFD254");
 
-
+    public static Color transparent = new Color(0, 0, 0, 0);
 }

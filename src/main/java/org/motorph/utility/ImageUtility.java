@@ -21,9 +21,15 @@ public class ImageUtility {
         return new ImageIcon(PayrollSystem.class.getResource(pathFromResources));
     }
 
-    public static JLabel importedImagesInJLabel(String pathFromResources) {
-        return new JLabel(importImages(pathFromResources));
+    public static JLabel importedImagesInJLabel(ImageIcon img) {
+        return new JLabel(img);
     }
+
+    public static JLabel importedImagesInJLabel(String pathFromResources) {
+        return importedImagesInJLabel(importImages(pathFromResources));
+    }
+
+
 
     public static ImageIcon importResizeImage(String pathFromResources, int xLength, int yLength) {
         ImageIcon importImage = importImages(pathFromResources);

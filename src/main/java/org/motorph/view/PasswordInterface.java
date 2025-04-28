@@ -16,6 +16,7 @@ public class PasswordInterface {
     private JButton submitButton;
     private JPanel entryPanel;
 
+
     public PasswordInterface(String title) {
         this.userName = TextFieldUtility.textField(16);
         this.password = TextFieldUtility.passwordField(16);

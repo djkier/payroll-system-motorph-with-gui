@@ -3,21 +3,9 @@ package org.motorph.view.screen;
 import javax.swing.*;
 
 public class ScreenPanel {
-    protected JPanel panel;
+    private JPanel screenPanel;
 
     public ScreenPanel() {
-        this.panel = new JPanel();
+        this.screenPanel = new JPanel();
     }
-
-    public JPanel getView() {
-        setUp(panel);
-        return panel;
-    }
-
-    public void setUp(JPanel pane) {
-
-    }
-
-
-
 }

@@ -1,59 +1,47 @@
 package org.motorph.view;
 
+import org.motorph.utility.ImageUtility;
+import org.motorph.utility.styling.ColorUtility;
+import org.motorph.view.tab.TabPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainApplication {
     private JFrame app;
-    private JPanel screenPanel;
-    private JPanel tabPanel;
+    private TabPanel tabPanel;
+
 
     public MainApplication(String appTitle) {
-        this.app = setUpApp(appTitle);
-        this.screenPanel = setUpScreen();
-        this.tabPanel = setTabPanel();
+        this.tabPanel = new TabPanel();
 
+        //set up last
+        this.app = setUpApp(appTitle);
     }
 
     private JFrame setUpApp(String title) {
         JFrame w = new JFrame(title);
         w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        w.setLocation(1250,120);
-        w.setSize(450, 450);
+        w.setLocation(-1650,50);
+        w.setSize(1024, 768);
         //Set true after development
-//        setLocationRelativeTo(null);
+//        w.setLocationRelativeTo(null);
         w.setLayout(new BorderLayout());
+        w.setBackground(ColorUtility.black);
         w.setResizable(false);
+
+        ImageIcon icon = ImageUtility.importImages("/images/icon2.png");
+        Image img = icon.getImage();
+        w.setIconImage(img);
+
+        w.add(tabPanel.getTabPanel(), BorderLayout.WEST);
+
         return w;
     }
 
-    private JPanel setUpScreen() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
-        return panel;
+    public void start() {
+        this.app.setVisible(true);
     }
-
-    private JPanel setTabPanel() {
-        JPanel tab = new JPanel();
-        tab.setBackground(Color.RED);
-        tab.setPreferredSize(new Dimension(100, 0));
-        return tab;
-    }
-
-    public JFrame getApp() {
-        return this.app;
-    }
-
-    public JPanel getScreenPanel() {
-        return this.screenPanel;
-    }
-
-    public JPanel getTabPanel() {
-        return this.tabPanel;
-    }
-
-
-
 
 
 
