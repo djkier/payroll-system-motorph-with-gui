@@ -12,12 +12,17 @@ import java.awt.*;
 public class Tab {
     private JPanel tab;
 
+    //Test tab click
+    private String tabName;
 
     public Tab(String name, String pathFromResources) {
         this.tab = setUp(name, pathFromResources);
     }
 
     private JPanel setUp(String name, String pathFromResources) {
+        //Test tab click
+        this.tabName = name;
+
         JPanel t = new JPanel();
         t.setBackground(ColorUtility.grayLight);
         t.setForeground(ColorUtility.violetText);
@@ -47,5 +52,6 @@ public class Tab {
     public JPanel getTab() {
         return this.tab;
     }
+
 
 }

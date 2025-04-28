@@ -1,6 +1,7 @@
 package org.motorph;
 
 import org.motorph.controller.MainAppViewController;
+import org.motorph.controller.PasswordController;
 
 import javax.swing.SwingUtilities;
 

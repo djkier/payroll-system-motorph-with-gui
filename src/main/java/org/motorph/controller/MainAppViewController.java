@@ -3,43 +3,44 @@ package org.motorph.controller;
 import org.motorph.view.MainApplication;
 import org.motorph.view.screen.EmployeeDetailsScreen;
 import org.motorph.view.screen.PayrollScreen;
+import org.motorph.view.tab.Tab;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainAppViewController {
     private MainApplication psApp;
+    private DashboardController dashboard;
+    private EmployeeController employee;
+    private PayrollController payslip;
 
     public MainAppViewController() {
-        this.psApp = new MainApplication("MotorPH Payroll System");
+        this.dashboard = new DashboardController();
+        this.employee = new EmployeeController();
+        this.payslip = new PayrollController();
+
+        this.psApp = new MainApplication("MotorPH Payroll System", dashboard.getPanel());
+        tabEvents();
     }
 
     public void start() {
         psApp.start();
     }
 
-//    private void tabPanelOptions() {
-//        JButton dashBoardBtn = new JButton("Dash Board");
-//        JButton employeeDetailBtn = new JButton("Employee Details");
-//        JButton printPayrollBtn = new JButton("Print Payroll");
-//
-//        tabPanel.add(dashBoardBtn);
-//        tabPanel.add(employeeDetailBtn);
-//        tabPanel.add(printPayrollBtn);
-//
-//        dashBoardBtn.addActionListener(e -> showOnScreenPanel(dashboardController.getPanel()));
-//        employeeDetailBtn.addActionListener(e -> showOnScreenPanel(new EmployeeDetailsScreen().getView()));
-//        printPayrollBtn.addActionListener(e -> showOnScreenPanel(new PayrollScreen().getView()));
-//    }
+    public void tabEvents() {
+        tabClick(psApp.dashboardTab(), dashboard.getPanel());
+        tabClick(psApp.empDetailsTab(), employee.getPanel());
+        tabClick(psApp.paySlipTab(), payslip.getPanel());
+    }
 
-
-//    private void showOnScreenPanel(JPanel newScreen) {
-//        screenPanel.removeAll();
-//        screenPanel.add(newScreen);
-//        screenPanel.revalidate();
-//        screenPanel.repaint();
-//    }
-
-
-
+    public void tabClick(JPanel tab, JPanel newScreen) {
+        tab.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                psApp.changePanel(newScreen);
+            }
+        });
+    }
 }

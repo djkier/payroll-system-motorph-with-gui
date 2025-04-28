@@ -40,4 +40,16 @@ public class TabPanel {
         return tabPanel;
     }
 
+    public Tab dashboard() {
+        return this.dashboard;
+    }
+
+    public Tab empDetails() {
+        return this.empDetails;
+    }
+
+    public Tab paySlip() {
+        return this.paySlip;
+    }
+
 }

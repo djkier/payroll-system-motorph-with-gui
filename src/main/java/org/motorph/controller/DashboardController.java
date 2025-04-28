@@ -5,13 +5,16 @@ import org.motorph.view.screen.DashBoardScreen;
 import javax.swing.*;
 
 public class DashboardController {
-    private DashBoardScreen dashBoardScreen;
+    private DashBoardScreen dashboardScreen;
+
 
     public DashboardController() {
-        this.dashBoardScreen = new DashBoardScreen();
+
+        this.dashboardScreen = new DashBoardScreen();
     }
 
     public JPanel getPanel() {
-        return dashBoardScreen.getView();
+
+        return dashboardScreen.getView();
     }
 }

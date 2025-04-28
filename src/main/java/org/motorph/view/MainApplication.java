@@ -2,6 +2,9 @@ package org.motorph.view;
 
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
+import org.motorph.view.screen.DashBoardScreen;
+import org.motorph.view.screen.ScreenPanel;
+import org.motorph.view.tab.Tab;
 import org.motorph.view.tab.TabPanel;
 
 import javax.swing.*;
@@ -10,10 +13,12 @@ import java.awt.*;
 public class MainApplication {
     private JFrame app;
     private TabPanel tabPanel;
+    private JPanel screenPanel;
 
 
-    public MainApplication(String appTitle) {
+    public MainApplication(String appTitle, JPanel panel) {
         this.tabPanel = new TabPanel();
+        this.screenPanel = panel;
 
         //set up last
         this.app = setUpApp(appTitle);
@@ -35,12 +40,33 @@ public class MainApplication {
         w.setIconImage(img);
 
         w.add(tabPanel.getTabPanel(), BorderLayout.WEST);
+        w.add(screenPanel);
 
         return w;
     }
 
     public void start() {
         this.app.setVisible(true);
+    }
+
+    public void changePanel(JPanel newScreen) {
+        app.remove(screenPanel);
+        this.screenPanel = newScreen;
+        app.add(screenPanel);
+        app.revalidate();
+        app.repaint();
+    }
+
+    public JPanel dashboardTab() {
+        return tabPanel.dashboard().getTab();
+    }
+
+    public JPanel empDetailsTab() {
+        return tabPanel.empDetails().getTab();
+    }
+
+    public JPanel paySlipTab() {
+        return tabPanel.paySlip().getTab();
     }
 
 
