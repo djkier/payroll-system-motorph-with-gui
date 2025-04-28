@@ -14,7 +14,6 @@ public class TextFieldUtility {
     public static JPasswordField passwordField (int cols) {
         JPasswordField t = new JPasswordField(cols);
         t.setMargin(new Insets(0, 6,0,0 ));
-
         return t;
     }
 

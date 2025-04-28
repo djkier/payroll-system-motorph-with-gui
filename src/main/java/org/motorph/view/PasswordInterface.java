@@ -1,5 +1,6 @@
 package org.motorph.view;
 
+import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtililty;
 import org.motorph.utility.ImageUtility;
@@ -33,7 +34,7 @@ public class PasswordInterface {
         passUI.setLocation(-1350,200);
         passUI.setSize(650, 280);
         passUI.setResizable(false);
-        passUI.getContentPane().setBackground(Color.WHITE);
+        passUI.getContentPane().setBackground(ColorUtility.white);
 
 
         //Change login window icon
@@ -53,7 +54,7 @@ public class PasswordInterface {
 
     public JPanel entryField(JLabel label) {
         //Set up the label that will appear when admin and password is invalid
-        label.setForeground(Color.RED);
+        label.setForeground(ColorUtility.redDark);
         label.setHorizontalAlignment(SwingConstants.CENTER);
 
         //Set the username and password field
@@ -89,6 +90,7 @@ public class PasswordInterface {
     private JPanel newRow(String str, JTextField e) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
+        //panel bg transparent
         panel.setBackground(new Color(0,0,0,0));
 
         //Use this to change the font of username and password
@@ -113,17 +115,16 @@ public class PasswordInterface {
 
     public String getPasswordText() {
         char[] pw = password.getPassword();
-        System.out.println(pw);
         return new String(pw);
     }
 
     public JButton setUpSubmitButton(String text) {
         JButton btn = new JButton(text);
         btn.setFont(FontUtililty.important(14));
-        btn.setBackground(Color.decode("#212143"));
-        btn.setForeground(Color.white);
+        btn.setBackground(ColorUtility.violetDark);
+        btn.setForeground(ColorUtility.white);
 //        btn.setBorder(BorderFactory.createEtchedBorder());
-        EffectsUtility.mouseHover(btn, Color.decode("#212143"), Color.decode("#D3D3D9"));
+        EffectsUtility.mouseHover(btn, ColorUtility.violetDark, ColorUtility.graySurface);
 
         return btn;
     }

@@ -21,7 +21,7 @@ public class ColorUtility {
     public static Color redDark = cF("#FD304D");
     public static Color redLight = cF("#FFD6DB");
     public static Color redText = cF("#D32940");
-    public static Color violetDark = cF("#FFD6DB");
+    public static Color violetDark = cF("#1A1A36");
     public static Color violet = cF("#212143");
     public static Color violetText = cF("#1A1A36");
     public static Color yellow = cF("#FFD254");

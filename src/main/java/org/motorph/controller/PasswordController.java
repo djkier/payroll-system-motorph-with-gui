@@ -43,7 +43,6 @@ public class PasswordController {
             System.out.println("No Username found!");
         }
         passwordInterface.restartField();
-
     }
 
 
