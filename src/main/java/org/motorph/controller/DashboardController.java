@@ -6,11 +6,12 @@ import javax.swing.*;
 
 public class DashboardController {
     private DashBoardScreen dashboardScreen;
+    private String user;
 
 
-    public DashboardController() {
-
-        this.dashboardScreen = new DashBoardScreen();
+    public DashboardController(String user) {
+        this.dashboardScreen = new DashBoardScreen(user);
+        this.user = user;
     }
 
     public JPanel getPanel() {

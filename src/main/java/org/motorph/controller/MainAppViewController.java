@@ -15,11 +15,13 @@ public class MainAppViewController {
     private DashboardController dashboard;
     private EmployeeController employee;
     private PayrollController payslip;
+    private String user;
 
-    public MainAppViewController() {
-        this.dashboard = new DashboardController();
+    public MainAppViewController(String user) {
+        this.dashboard = new DashboardController(user);
         this.employee = new EmployeeController();
         this.payslip = new PayrollController();
+        this.user = user;
 
         this.psApp = new MainApplication("MotorPH Payroll System", dashboard.getPanel());
         tabEvents();
@@ -34,6 +36,8 @@ public class MainAppViewController {
         tabClick(psApp.empDetailsTab(), employee.getPanel());
         tabClick(psApp.paySlipTab(), payslip.getPanel());
     }
+
+    //restart the values of employee and payslip when loaded a new file
 
     public void tabClick(JPanel tab, JPanel newScreen) {
         tab.addMouseListener(new MouseAdapter() {

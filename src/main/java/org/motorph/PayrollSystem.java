@@ -19,7 +19,7 @@ public class PayrollSystem {
 
         //Start with the main app
         SwingUtilities.invokeLater(() -> {
-            MainAppViewController mainApp = new MainAppViewController();
+            MainAppViewController mainApp = new MainAppViewController("Admin");
             mainApp.start();
         });
 

@@ -34,7 +34,7 @@ public class PasswordController {
         if (userName.equals(eUserName) && password.equals(ePassword)) {
             app.dispose();
             SwingUtilities.invokeLater(() -> {
-                MainAppViewController vc = new MainAppViewController();
+                MainAppViewController vc = new MainAppViewController("Admin");
                 vc.start();
             });
         } else if (userName.equals(eUserName)){
