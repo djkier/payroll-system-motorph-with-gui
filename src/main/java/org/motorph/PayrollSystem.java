@@ -2,6 +2,7 @@ package org.motorph;
 
 import org.motorph.controller.MainAppViewController;
 import org.motorph.controller.PasswordController;
+import org.motorph.model.FileHandler;
 
 import javax.swing.SwingUtilities;
 
@@ -18,10 +19,13 @@ public class PayrollSystem {
 //        });
 
         //Start with the main app
-        SwingUtilities.invokeLater(() -> {
-            MainAppViewController mainApp = new MainAppViewController("Admin");
-            mainApp.start();
-        });
+//        SwingUtilities.invokeLater(() -> {
+//            MainAppViewController mainApp = new MainAppViewController("Admin");
+//            mainApp.start();
+//        });
+
+        FileHandler fh = new FileHandler();
+        fh.testing();
 
     }
 }

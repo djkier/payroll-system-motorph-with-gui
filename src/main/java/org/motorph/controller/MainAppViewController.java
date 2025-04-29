@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 public class MainAppViewController {
     private MainApplication psApp;
@@ -18,9 +19,12 @@ public class MainAppViewController {
     private PayrollController payslip;
     private String user;
 
+    private FileHandler file;
+
     public MainAppViewController(String user) {
         //model
-//        this.file = new FileHandler();
+        this.file = new FileHandler();
+
 
 
         //view
