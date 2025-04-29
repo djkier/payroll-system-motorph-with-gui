@@ -1,5 +1,6 @@
 package org.motorph.controller;
 
+import org.motorph.model.FileHandler;
 import org.motorph.view.MainApplication;
 import org.motorph.view.screen.EmployeeDetailsScreen;
 import org.motorph.view.screen.PayrollScreen;
@@ -18,12 +19,18 @@ public class MainAppViewController {
     private String user;
 
     public MainAppViewController(String user) {
+        //model
+//        this.file = new FileHandler();
+
+
+        //view
         this.dashboard = new DashboardController(user);
         this.employee = new EmployeeController();
         this.payslip = new PayrollController();
         this.user = user;
 
-        this.psApp = new MainApplication("MotorPH Payroll System", dashboard.getPanel());
+
+        this.psApp = new MainApplication("MotorPH Payroll System", employee.getPanel());
         tabEvents();
     }
 

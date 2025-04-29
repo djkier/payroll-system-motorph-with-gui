@@ -1,10 +1,12 @@
 package org.motorph.view.screen;
 
+import org.motorph.model.samplefile.TestData;
 import org.motorph.utility.styling.ColorUtility;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+
 
 public class DashBoardScreen extends ScreenView {
     private String user;
@@ -25,9 +27,7 @@ public class DashBoardScreen extends ScreenView {
     public JPanel body() {
         JPanel b = new JPanel();
         b.setBackground(ColorUtility.transparent);
-        b.setSize(500, 30);
-
-
+        b.setSize(300, 30);
 
         return b;
     }

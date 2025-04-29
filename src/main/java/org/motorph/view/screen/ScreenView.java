@@ -43,9 +43,12 @@ public class ScreenView {
 
         JLabel label = new JLabel(setLabel());
         label.setFont(FontUtility.plain(18));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setHorizontalAlignment(SwingConstants.LEFT);
 
+        JLabel space = new JLabel();
+        space.setPreferredSize(new Dimension(24,80));
 
+        leftBox.add(space, BorderLayout.WEST);
         leftBox.add(label, BorderLayout.CENTER);
 
         return leftBox;
