@@ -4,6 +4,7 @@ import org.motorph.utility.styling.ColorUtility;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class DashBoardScreen extends ScreenView {
     private String user;
@@ -23,14 +24,17 @@ public class DashBoardScreen extends ScreenView {
     @Override
     public JPanel body() {
         JPanel b = new JPanel();
-        b.setBackground(ColorUtility.greenDark);
+        b.setBackground(ColorUtility.transparent);
         b.setSize(500, 30);
+
+
+
         return b;
     }
 
     @Override
-    public JLabel setLabel() {
-        return new JLabel("Dashboard");
+    public String setLabel() {
+        return "Dashboard";
     }
 
 }

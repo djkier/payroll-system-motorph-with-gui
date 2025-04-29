@@ -2,7 +2,7 @@ package org.motorph.view;
 
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
-import org.motorph.utility.styling.FontUtililty;
+import org.motorph.utility.styling.FontUtility;
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.TextFieldUtility;
 
@@ -121,7 +121,7 @@ public class PasswordInterface {
 
     public JButton setUpSubmitButton(String text) {
         JButton btn = new JButton(text);
-        btn.setFont(FontUtililty.important(14));
+        btn.setFont(FontUtility.important(14));
         btn.setBackground(ColorUtility.violetDark);
         btn.setForeground(ColorUtility.white);
 //        btn.setBorder(BorderFactory.createEtchedBorder());

@@ -27,7 +27,7 @@ public class EmployeeDetailsScreen extends ScreenView {
     }
 
     @Override
-    public JLabel setLabel() {
-        return new JLabel("Employee");
+    public String setLabel() {
+        return "Employee";
     }
 }

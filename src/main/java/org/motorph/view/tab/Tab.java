@@ -3,7 +3,7 @@ package org.motorph.view.tab;
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
-import org.motorph.utility.styling.FontUtililty;
+import org.motorph.utility.styling.FontUtility;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,7 +45,7 @@ public class Tab {
     private JLabel text(String name) {
         String space = "  " + name;
         JLabel tText = new JLabel(space);
-        tText.setFont(FontUtililty.important(18));
+        tText.setFont(FontUtility.important(18));
         return tText;
     }
 

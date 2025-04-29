@@ -24,6 +24,7 @@ public class EffectsUtility {
         });
     }
 
+    //Tab options highlight on hover
     public static void panelHover(JPanel panel, Color panelColor, Color colorIn) {
         panel.addMouseListener(new MouseAdapter() {
             @Override
@@ -38,8 +39,29 @@ public class EffectsUtility {
         });
     }
 
+    //Border color
     public static MatteBorder borderColor(int top, int left, int bottom, int right) {
         return new MatteBorder(top, left, bottom, right, ColorUtility.grayBorder);
     }
+
+    //Spacing JPanel
+    public static JPanel horizontalDivider(int height, Color color) {
+        JPanel s = new JPanel();
+        s.setPreferredSize(new Dimension(30, height));
+        s.setBackground(color);
+
+        return s;
+    }
+
+    public static JPanel horizontalDivider(int height) {
+        return horizontalDivider(height, ColorUtility.transparent);
+    }
+
+
+
+
+
+
+
 
 }

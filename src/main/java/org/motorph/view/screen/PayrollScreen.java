@@ -28,7 +28,7 @@ public class PayrollScreen extends ScreenView {
     }
 
     @Override
-    public JLabel setLabel() {
-        return new JLabel("Payslip");
+    public String setLabel() {
+        return "Payslip";
     }
 }

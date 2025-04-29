@@ -1,7 +1,8 @@
 package org.motorph.view.screen;
 
 import org.motorph.utility.styling.ColorUtility;
-import org.motorph.utility.styling.FontUtililty;
+import org.motorph.utility.styling.EffectsUtility;
+import org.motorph.utility.styling.FontUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,36 +21,46 @@ public class ScreenView {
 
     private JPanel top() {
         JPanel t = new JPanel();
-        t.setBackground(ColorUtility.violet);
-        t.setSize(900, 1000);
+        t.setBackground(ColorUtility.transparent);
+        t.setPreferredSize(new Dimension(100, 48));
+        t.setBorder(EffectsUtility.borderColor(0, 0, 3, 0));
 
         t.setLayout(new BorderLayout());
         t.add(topLeftPanel(), BorderLayout.WEST);
         t.add(topRightPanel(), BorderLayout.EAST);
 
+
+
         return t;
     }
 
-
-
     private JPanel topLeftPanel() {
         JPanel leftBox = new JPanel();
-        JLabel label = setLabel();
-        label.setFont(FontUtililty.important());
+        leftBox.setPreferredSize(new Dimension(128, 80));
+        leftBox.setLayout(new BorderLayout());
+        leftBox.setBackground(ColorUtility.transparent);
 
-        leftBox.add(label);
+
+        JLabel label = new JLabel(setLabel());
+        label.setFont(FontUtility.plain(18));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+        leftBox.add(label, BorderLayout.CENTER);
 
         return leftBox;
     }
 
-    public JLabel setLabel() {
-        return new JLabel();
+    //Override
+    public String setLabel() {
+        return "";
     }
 
+    //Will be overriden by the dashboard
     private JPanel topRightPanel() {
         JPanel timeBox = new JPanel();
-        JLabel time = new JLabel("10:00 AM         ");
-        timeBox.add(time);
+//        JLabel time = new JLabel(FontUtility.addSpaceLast("10:00 AM", 4));
+//        timeBox.add(time);
         return timeBox;
     }
 
@@ -64,8 +75,8 @@ public class ScreenView {
 
     public JPanel setUp() {
         JPanel screen = new JPanel();
-//        screen.setLayout(new BoxLayout(screen,BoxLayout.Y_AXIS));
         screen.setLayout(new BorderLayout());
+        screen.setBackground(ColorUtility.grayLight);
 
         screen.add(top(), BorderLayout.NORTH);
         screen.add(body(), BorderLayout.CENTER);
