@@ -22,19 +22,18 @@ public class MainAppViewController {
     private FileHandler file;
 
     public MainAppViewController(String user) {
-        //model
+        this.user = user;
+        //data
         this.file = new FileHandler();
-
-
-
+        this.file.preLoadEmpDetails();
+        this.file.preLoadEmpDetails();
         //view
         this.dashboard = new DashboardController(user);
         this.employee = new EmployeeController();
         this.payslip = new PayrollController();
-        this.user = user;
 
 
-        this.psApp = new MainApplication("MotorPH Payroll System", employee.getPanel());
+        this.psApp = new MainApplication("MotorPH Payroll System", dashboard.getPanel());
         tabEvents();
     }
 

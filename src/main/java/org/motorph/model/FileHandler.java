@@ -55,16 +55,15 @@ public class FileHandler {
 
     public void preLoadEmpDetails() {
         ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream("employee-details.csv"));
-        this.fileNameEmpDet = this.fileNameLoaded;
+        this.fileNameEmpDet = "employee-details.csv";
         dataProcessRepo.processEmployeeDetails(lines);
     }
 
     public void preLoadAttendance() {
         ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream("employee-attendance.csv"));
-        this.fileNameAtt = this.fileNameLoaded;
+        this.fileNameAtt = "employee-attendance.csv";
         dataProcessRepo.processAttendance(lines);
     }
-
 
 
     public ArrayList<String> openFile(String filePath) throws FileNotFoundException {

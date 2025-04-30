@@ -40,12 +40,13 @@ public class MainApplication {
         w.setIconImage(img);
 
         w.add(tabPanel.getTabPanel(), BorderLayout.WEST);
-        w.add(screenPanel);
+        w.add(screenPanel, BorderLayout.CENTER);
 
         return w;
     }
 
     public void start() {
+
         this.app.setVisible(true);
     }
 

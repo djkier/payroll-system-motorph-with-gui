@@ -19,23 +19,11 @@ public class PayrollSystem {
 //        });
 
         //Start with the main app
-//        SwingUtilities.invokeLater(() -> {
-//            MainAppViewController mainApp = new MainAppViewController("Admin");
-//            mainApp.start();
-//        });
+        SwingUtilities.invokeLater(() -> {
+            MainAppViewController mainApp = new MainAppViewController("Admin");
+            mainApp.start();
+        });
 
-        FileHandler fh = new FileHandler();
-        fh.preLoadEmpDetails();
-        fh.preLoadAttendance();
-        System.out.println("start");
-        fh.getRepository().findInstanceLastName("ae");
-        System.out.println("----------");
-        fh.getRepository().findInstanceLastName("b");
-        System.out.println("----------");
-        fh.getRepository().findInstanceLastName("c");
-        System.out.println("----------");
-        fh.getRepository().findInstanceLastName("d");
-        System.out.println("End");
 
     }
 }

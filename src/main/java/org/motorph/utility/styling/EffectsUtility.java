@@ -57,6 +57,22 @@ public class EffectsUtility {
         return horizontalDivider(height, ColorUtility.transparent);
     }
 
+    public static JPanel margin(int width, int height) {
+        JPanel border = new JPanel();
+        border.setPreferredSize(new Dimension(width,height));
+        border.setBackground(ColorUtility.grayLight);
+
+        return border;
+    }
+
+    public static JPanel verticalMargin() {
+        return margin(24, 12);
+    }
+
+    public static JPanel horizontalMargin() {
+        return margin(12,24);
+    }
+
 
 
 

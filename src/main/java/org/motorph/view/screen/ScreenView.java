@@ -9,13 +9,34 @@ import java.awt.*;
 
 public class ScreenView {
     private JPanel panel;
+    private String user;
 
-    public ScreenView(String screenName) {
+
+    public ScreenView(String user) {
+        this.user = user;
         this.panel = setUp();
     }
 
     public ScreenView() {
         this("hello");
+    }
+
+    public JPanel getView() {
+
+        return panel;
+    }
+    public String getUser() {
+        return this.user;
+    }
+
+    public JPanel setUp() {
+        JPanel screen = new JPanel();
+        screen.setLayout(new BorderLayout());
+        screen.setBackground(ColorUtility.grayLight);
+
+        screen.add(top(), BorderLayout.NORTH);
+        screen.add(borderedBody(), BorderLayout.CENTER);
+        return screen;
     }
 
 
@@ -28,8 +49,6 @@ public class ScreenView {
         t.setLayout(new BorderLayout());
         t.add(topLeftPanel(), BorderLayout.WEST);
         t.add(topRightPanel(), BorderLayout.EAST);
-
-
 
         return t;
     }
@@ -56,6 +75,7 @@ public class ScreenView {
 
     //Override
     public String setLabel() {
+
         return "";
     }
 
@@ -67,24 +87,32 @@ public class ScreenView {
         return timeBox;
     }
 
+    //Main body starts here
+    private JPanel borderedBody() {
+        JPanel b = new JPanel();
+
+        b.setBackground(ColorUtility.grayLight);
+        b.setLayout(new BorderLayout());
+
+        b.add(EffectsUtility.verticalMargin(), BorderLayout.WEST);
+        b.add(EffectsUtility.verticalMargin(), BorderLayout.EAST);
+        b.add(EffectsUtility.horizontalMargin(), BorderLayout.NORTH);
+        b.add(EffectsUtility.horizontalMargin(), BorderLayout.SOUTH);
+
+        b.add(body(), BorderLayout.CENTER);
+
+        return b;
+    }
+
+    //override by the ancestors
     public JPanel body() {
         return new JPanel();
     }
 
 
-    public JPanel getView() {
-        return panel;
-    }
 
-    public JPanel setUp() {
-        JPanel screen = new JPanel();
-        screen.setLayout(new BorderLayout());
-        screen.setBackground(ColorUtility.grayLight);
 
-        screen.add(top(), BorderLayout.NORTH);
-        screen.add(body(), BorderLayout.CENTER);
-        return screen;
-    }
+
 
 
 
