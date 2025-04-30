@@ -1,19 +1,22 @@
 package org.motorph.model;
 
+import org.motorph.model.datarepositories.DataProcessRepo;
+import org.motorph.utility.TypeCleaner;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class FileHandler {
-
     private String fileNameLoaded;
     private String fileNameEmpDet;
     private String fileNameAtt;
+    private DataProcessRepo dataProcessRepo;
 
     public FileHandler() {
-
         this.fileNameLoaded = "";
         this.fileNameEmpDet = "";
         this.fileNameAtt = "";
+        this.dataProcessRepo = new DataProcessRepo();
     }
 
     public void printFile(ArrayList<String> lines) {
@@ -23,17 +26,17 @@ public class FileHandler {
     }
 
     public void testing() {
-        long startTime = System.currentTimeMillis();
-        ArrayList<String> lines = preLoadEmpDetails();
-        System.out.println(isValidEmployeeDetailFile(lines));
-        printFile(lines);
-
-        lines = preLoadAttendance();
-        System.out.println(isValidEmployeeDetailFile(lines));
-        printFile(lines);
-
-        long endTime = System.currentTimeMillis();
-        System.out.println("Process took " + (endTime - startTime) + "ms");
+//        long startTime = System.currentTimeMillis();
+//        ArrayList<String> lines = preLoadEmpDetails();
+//        System.out.println(isValidEmployeeDetailFile(lines));
+//        printFile(lines);
+//
+//        lines = preLoadAttendance();
+//        System.out.println(isValidEmployeeDetailFile(lines));
+//        printFile(lines);
+//
+//        long endTime = System.currentTimeMillis();
+//        System.out.println("Process took " + (endTime - startTime) + "ms");
     }
 
     //Opening employee details and attendance file will have seperate method
@@ -67,6 +70,18 @@ public class FileHandler {
         return false;
     }
 
+    public void preLoadEmpDetails() {
+        ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream(fileNameLoaded));
+        this.fileNameEmpDet = this.fileNameLoaded;
+        //function for processing employee details
+    }
+
+    public void preLoadAttendance() {
+        ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream(fileNameLoaded));
+        this.fileNameAtt = this.fileNameLoaded;
+        //function that will process the attendance file
+    }
+
 
     public ArrayList<String> openFile(String filePath) throws FileNotFoundException {
         File file = new File(filePath);
@@ -76,15 +91,7 @@ public class FileHandler {
         return open(is);
     }
 
-    public ArrayList<String> preLoadEmpDetails() {
-        this.fileNameLoaded = "employee-details.csv";
-        return open(getClass().getClassLoader().getResourceAsStream(fileNameLoaded));
-    }
 
-    public ArrayList<String> preLoadAttendance() {
-        this.fileNameLoaded = "employee-attendance.csv";
-        return open(getClass().getClassLoader().getResourceAsStream(fileNameLoaded));
-    }
 
     public ArrayList<String> open(InputStream is) {
         ArrayList<String> list = new ArrayList<>();
@@ -135,7 +142,7 @@ public class FileHandler {
         //Check basic integrity of rows by comparing the length of it
         //to the intended size
         for (int i = 1; i < file.size(); i++) {
-            String[] row = cleanSplit(file.get(i));
+            String[] row = TypeCleaner.cleanSplit(file.get(i));
             if (w.length != row.length){
                 return false;
             }
@@ -153,8 +160,6 @@ public class FileHandler {
         return isValidFile(file, FileHeader.attendanceHeader);
     }
 
-    public String[] cleanSplit(String line) {
-        return line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-    }
+
 
 }
