@@ -57,20 +57,43 @@ public class EffectsUtility {
         return horizontalDivider(height, ColorUtility.transparent);
     }
 
-    public static JPanel margin(int width, int height) {
+    public static JPanel margin(int width, int height, Color color) {
         JPanel border = new JPanel();
         border.setPreferredSize(new Dimension(width,height));
-        border.setBackground(ColorUtility.grayLight);
+        border.setBackground(color);
 
         return border;
     }
 
-    public static JPanel verticalMargin() {
-        return margin(24, 12);
+    public static JPanel verticalMargin(int space) {
+        return margin(space, 12, ColorUtility.grayLight);
     }
 
-    public static JPanel horizontalMargin() {
-        return margin(12,24);
+    public static JPanel horizontalMargin(int space) {
+        return margin(24,space, ColorUtility.grayLight);
+    }
+
+    private static JPanel insideMarginHorizontal() {
+        return margin(12, 8, ColorUtility.white);
+    }
+
+    private static JPanel insideMarginVertical() {
+        return margin(12, 12, ColorUtility.white);
+    }
+
+    public static JPanel marginedBoxText(JPanel panel) {
+        JPanel box = new JPanel();
+        box.setLayout(new BorderLayout());
+        box.setBackground(ColorUtility.white);
+
+        box.add(insideMarginHorizontal(), BorderLayout.NORTH);
+        box.add(insideMarginVertical(), BorderLayout.WEST);
+        box.add(insideMarginHorizontal(), BorderLayout.SOUTH);
+        box.add(insideMarginVertical(), BorderLayout.EAST);
+
+        box.add(panel, BorderLayout.CENTER);
+
+        return box;
     }
 
 

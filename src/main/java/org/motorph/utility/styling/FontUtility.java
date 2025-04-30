@@ -14,6 +14,10 @@ public class FontUtility {
         return new Font(fontFamily, Font.PLAIN, size);
     }
 
+    public static Font plainItalic(int size) {
+        return new Font(fontFamily, Font.ITALIC, size);
+    }
+
     public static String addSpaceFront(String word, int spaceInFront) {
         String edit = word;
         for (int i = 1; i <= spaceInFront; i++) {
@@ -54,5 +58,9 @@ public class FontUtility {
 
     public static Font plain() {
         return plain(14);
+    }
+
+    public static Font plainItalic() {
+        return plainItalic(14);
     }
 }

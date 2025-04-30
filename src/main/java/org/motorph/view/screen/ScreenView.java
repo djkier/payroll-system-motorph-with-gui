@@ -94,10 +94,10 @@ public class ScreenView {
         b.setBackground(ColorUtility.grayLight);
         b.setLayout(new BorderLayout());
 
-        b.add(EffectsUtility.verticalMargin(), BorderLayout.WEST);
-        b.add(EffectsUtility.verticalMargin(), BorderLayout.EAST);
-        b.add(EffectsUtility.horizontalMargin(), BorderLayout.NORTH);
-        b.add(EffectsUtility.horizontalMargin(), BorderLayout.SOUTH);
+        b.add(EffectsUtility.verticalMargin(24), BorderLayout.WEST);
+        b.add(EffectsUtility.verticalMargin(24), BorderLayout.EAST);
+        b.add(EffectsUtility.horizontalMargin(12), BorderLayout.NORTH);
+        b.add(EffectsUtility.horizontalMargin(12), BorderLayout.SOUTH);
 
         b.add(body(), BorderLayout.CENTER);
 

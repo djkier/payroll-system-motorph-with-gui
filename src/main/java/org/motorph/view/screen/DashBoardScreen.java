@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 import java.awt.*;
 import java.io.File;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 
 public class DashBoardScreen extends ScreenView {
@@ -28,15 +30,6 @@ public class DashBoardScreen extends ScreenView {
 //        return panel;
 //    }
 
-    public JPanel centerBody() {
-        JPanel cb = new JPanel();
-
-        cb.add(welcomeMessage(), BorderLayout.NORTH);
-        cb.add(fileInfo(), BorderLayout.CENTER);
-        cb.add(announcement(), BorderLayout.SOUTH);
-
-        return cb;
-    }
 
     @Override
     public JPanel body() {
@@ -47,7 +40,7 @@ public class DashBoardScreen extends ScreenView {
 
         b.add(bodyCenterTop(), BorderLayout.NORTH);
         b.add(fileInfo(), BorderLayout.CENTER);
-        b.add(announcement(), BorderLayout.SOUTH);
+        b.add(bodyCenterBottom(), BorderLayout.SOUTH);
 
         return b;
     }
@@ -62,10 +55,8 @@ public class DashBoardScreen extends ScreenView {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
 
-        JPanel border = EffectsUtility.horizontalMargin();
-
-        p.add(welcomeMessage(), BorderLayout.CENTER);
-        p.add(border, BorderLayout.SOUTH);
+        p.add(EffectsUtility.marginedBoxText(welcomeMessage()), BorderLayout.CENTER);
+        p.add(EffectsUtility.horizontalMargin(24), BorderLayout.SOUTH);
 
         return p;
     }
@@ -73,20 +64,29 @@ public class DashBoardScreen extends ScreenView {
     public JPanel welcomeMessage() {
         JPanel top = new JPanel();
 
-
         JPanel messageBox = new JPanel();
-        JLabel message = new JLabel("Welcome, " + getUser());
+        messageBox.setLayout(new BorderLayout());
+
+        JLabel message = new JLabel("Welcome, " + getUser() );
         message.setFont(FontUtility.important(16));
         message.setForeground(ColorUtility.black);
+
         JLabel timeLoggedIn = new JLabel("Time logged in: " + "12:00PM");
-        timeLoggedIn.setFont(FontUtility.plain());
+        timeLoggedIn.setFont(FontUtility.plainItalic(14));
+        timeLoggedIn.setForeground(ColorUtility.grayDark);
 
+        messageBox.add(message, BorderLayout.CENTER);
+        messageBox.add(timeLoggedIn, BorderLayout.SOUTH);
+        messageBox.setBackground(ColorUtility.transparent);
+
+        JLabel motorphLogo = ImageUtility.importedResizedInJLabel("/images/passwordLogoOriginalSize.jpg", 90, 52);
+        motorphLogo.setVerticalAlignment(SwingConstants.CENTER);
         top.setBackground(ColorUtility.white);
-        top.setPreferredSize(new Dimension(200, 80));
+        top.setPreferredSize(new Dimension(200, 48));
+        top.setLayout(new BorderLayout());
 
-        top.add(message);
-        top.add(timeLoggedIn);
-
+        top.add(messageBox, BorderLayout.WEST);
+        top.add(motorphLogo, BorderLayout.EAST);
 
         return top;
     }
@@ -103,12 +103,22 @@ public class DashBoardScreen extends ScreenView {
     }
 
     //body bottom size editable
+    public JPanel bodyCenterBottom() {
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+
+        p.add(EffectsUtility.horizontalMargin(24), BorderLayout.NORTH);
+        p.add(EffectsUtility.marginedBoxText(announcement()), BorderLayout.CENTER);
+
+        return p;
+    }
     public JPanel announcement() {
         JPanel announceTable = new JPanel();
         JLabel tableTitle = new JLabel("Announcement");
-        tableTitle.setForeground(ColorUtility.white);
+        tableTitle.setFont(FontUtility.important(14));
+        tableTitle.setForeground(ColorUtility.black);
 
-        announceTable.setBackground(ColorUtility.violetDark);
+        announceTable.setBackground(ColorUtility.white);
         announceTable.setPreferredSize(new Dimension(210, 200));
 
         announceTable.add(tableTitle);
