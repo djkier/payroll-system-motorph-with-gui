@@ -216,4 +216,9 @@ public class EmployeeDetails {
     public void setHourlyRate(Double hourlyRate) {
         this.hourlyRate = hourlyRate;
     }
+
+    @Override
+    public String toString() {
+        return this.id + " - " + this.lastName + ", " + this.firstName + " - " + this.status;
+    }
 }

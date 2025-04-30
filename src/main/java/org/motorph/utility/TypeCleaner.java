@@ -18,13 +18,19 @@ public class TypeCleaner {
     }
 
     public static LocalDate convertStringToDate(String date) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-        return LocalDate.parse(date, format);
+        String[] dateSplit = date.split("/");
+        int month = Integer.valueOf(dateSplit[0]);
+        int day = Integer.valueOf(dateSplit[1]);
+        int year = Integer.valueOf(dateSplit[2]);
+        return LocalDate.of(year, month, day);
     }
 
     public static LocalTime convertStringToTime(String time) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
-        return LocalTime.parse(time, format);
+        String[] timeSplit = time.split(":");
+        int hour = Integer.valueOf(timeSplit[0]);
+        int minutes = Integer.valueOf(timeSplit[1]);
+
+        return LocalTime.of(hour, minutes);
     }
 
     //Get only 2 decimal numbers

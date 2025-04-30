@@ -19,24 +19,8 @@ public class FileHandler {
         this.dataProcessRepo = new DataProcessRepo();
     }
 
-    public void printFile(ArrayList<String> lines) {
-        for (int i = 0; i < 4; i++) {
-            System.out.println(lines.get(i));
-        }
-    }
-
-    public void testing() {
-//        long startTime = System.currentTimeMillis();
-//        ArrayList<String> lines = preLoadEmpDetails();
-//        System.out.println(isValidEmployeeDetailFile(lines));
-//        printFile(lines);
-//
-//        lines = preLoadAttendance();
-//        System.out.println(isValidEmployeeDetailFile(lines));
-//        printFile(lines);
-//
-//        long endTime = System.currentTimeMillis();
-//        System.out.println("Process took " + (endTime - startTime) + "ms");
+    public DataProcessRepo getRepository() {
+        return this.dataProcessRepo;
     }
 
     //Opening employee details and attendance file will have seperate method
@@ -45,12 +29,11 @@ public class FileHandler {
 
     //Try to open and process employee details file
     public boolean tryProcessEmployeeFile(String filePath) throws FileNotFoundException {
-        ArrayList<String> file = openFile(filePath);
-        if (isValidEmployeeDetailFile(file)) {
+        ArrayList<String> lines = openFile(filePath);
+        if (isValidEmployeeDetailFile(lines)) {
             this.fileNameEmpDet = this.fileNameLoaded;
             //function that will process the file.
-
-
+            dataProcessRepo.processEmployeeDetails(lines);
             return true;
         }
         return false;
@@ -62,7 +45,7 @@ public class FileHandler {
         if (isValidAttendanceFile(lines)) {
             this.fileNameAtt = this.fileNameLoaded;
             //function that will process the file
-
+            dataProcessRepo.processAttendance(lines);
 
             return true;
         }
@@ -71,16 +54,17 @@ public class FileHandler {
     }
 
     public void preLoadEmpDetails() {
-        ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream(fileNameLoaded));
+        ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream("employee-details.csv"));
         this.fileNameEmpDet = this.fileNameLoaded;
-        //function for processing employee details
+        dataProcessRepo.processEmployeeDetails(lines);
     }
 
     public void preLoadAttendance() {
-        ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream(fileNameLoaded));
+        ArrayList<String> lines = open(getClass().getClassLoader().getResourceAsStream("employee-attendance.csv"));
         this.fileNameAtt = this.fileNameLoaded;
-        //function that will process the attendance file
+        dataProcessRepo.processAttendance(lines);
     }
+
 
 
     public ArrayList<String> openFile(String filePath) throws FileNotFoundException {

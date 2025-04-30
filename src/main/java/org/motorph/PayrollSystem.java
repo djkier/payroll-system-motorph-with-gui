@@ -25,7 +25,17 @@ public class PayrollSystem {
 //        });
 
         FileHandler fh = new FileHandler();
-        fh.testing();
+        fh.preLoadEmpDetails();
+        fh.preLoadAttendance();
+        System.out.println("start");
+        fh.getRepository().findInstanceLastName("ae");
+        System.out.println("----------");
+        fh.getRepository().findInstanceLastName("b");
+        System.out.println("----------");
+        fh.getRepository().findInstanceLastName("c");
+        System.out.println("----------");
+        fh.getRepository().findInstanceLastName("d");
+        System.out.println("End");
 
     }
 }

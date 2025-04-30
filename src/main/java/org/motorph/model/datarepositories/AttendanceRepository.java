@@ -21,7 +21,7 @@ public class AttendanceRepository {
             String[] att = TypeCleaner.cleanSplit(file.get(i));
 
             //if ID do not exist in repository
-            if (!repository.containsKey(att[0])) {
+            if (!(repository.containsKey(att[0]))) {
                 AttendancePerEmployee empAttendance = new AttendancePerEmployee(att[0]);
                 addNewAttendance(empAttendance, att[3], att[4], att[5]);
                 repository.put(att[0], empAttendance);

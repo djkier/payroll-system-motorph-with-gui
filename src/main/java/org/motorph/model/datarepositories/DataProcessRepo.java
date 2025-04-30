@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 
 public class DataProcessRepo {
-    //Hashmap for employee details
     private EmployeeRepository employeeRepository;
-    //Hashmap for the attendance
+    private AttendanceRepository attendanceRepository;
 
     public DataProcessRepo() {
         this.employeeRepository = new EmployeeRepository();
+        this.attendanceRepository = new AttendanceRepository();
     }
 
     //method for processing employee
@@ -19,5 +19,15 @@ public class DataProcessRepo {
     }
 
     //method for processing attendance
+    public void processAttendance(ArrayList<String> file) {
+        attendanceRepository.processAttendance(file);
+    }
+
+//   testing
+    public void findInstanceLastName(String lastname) {
+        ArrayList<EmployeeDetails> emp = employeeRepository.getEmployeeWithLastNameStartsWith(lastname);
+        emp.stream().forEach(System.out::println);
+    }
+
 
 }
