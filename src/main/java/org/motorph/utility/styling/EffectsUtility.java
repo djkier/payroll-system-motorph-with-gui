@@ -29,12 +29,17 @@ public class EffectsUtility {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
+
                 panel.setBackground(colorIn);
+                panel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+
                 panel.setBackground(panelColor);
+                panel.setCursor(Cursor.getDefaultCursor());
+
             }
         });
     }
@@ -73,28 +78,66 @@ public class EffectsUtility {
         return margin(24,space, ColorUtility.grayLight);
     }
 
-    private static JPanel insideMarginHorizontal() {
-        return margin(12, 8, ColorUtility.white);
+    public static JPanel insideMarginHorizontal(int height, Color color) {
+        return margin(12, height, color);
     }
 
-    private static JPanel insideMarginVertical() {
-        return margin(12, 12, ColorUtility.white);
+    public static JPanel insideMarginHorizontal() {
+        return insideMarginHorizontal(8, ColorUtility.white);
     }
 
-    public static JPanel marginedBoxText(JPanel panel) {
+    public static JPanel insideMarginVertical(int width, Color color) {
+        return margin(width, 12, color);
+    }
+    public static JPanel insideMarginVertical() {
+
+        return insideMarginVertical(12, ColorUtility.white);
+    }
+
+    public static JPanel marginedBoxText(JPanel panel , int width, int height, Color color) {
         JPanel box = new JPanel();
         box.setLayout(new BorderLayout());
-        box.setBackground(ColorUtility.white);
+        box.setBackground(color);
 
-        box.add(insideMarginHorizontal(), BorderLayout.NORTH);
-        box.add(insideMarginVertical(), BorderLayout.WEST);
-        box.add(insideMarginHorizontal(), BorderLayout.SOUTH);
-        box.add(insideMarginVertical(), BorderLayout.EAST);
+        box.add(insideMarginHorizontal(height, color), BorderLayout.NORTH);
+        box.add(insideMarginVertical(width, color), BorderLayout.WEST);
+        box.add(insideMarginHorizontal(height, color), BorderLayout.SOUTH);
+        box.add(insideMarginVertical(width, color), BorderLayout.EAST);
 
         box.add(panel, BorderLayout.CENTER);
 
         return box;
     }
+
+    public static JPanel marginedBoxText(JPanel panel , int width, int height) {
+        return marginedBoxText(panel, width, height, ColorUtility.white);
+    }
+
+    public static JPanel marginedBoxText(JPanel panel) {
+        return marginedBoxText(panel, 12, 8);
+    }
+
+    public static JPanel marginedPanelWithText(String text, Font font, Color color) {
+        JPanel p  = new JPanel();
+        p.setLayout(new BorderLayout());
+        JLabel l = new JLabel(text);
+        l.setForeground(ColorUtility.black);
+        l.setBackground(ColorUtility.transparent);
+        l.setFont(font);
+        l.setHorizontalAlignment(SwingConstants.LEFT);
+
+        p.add(l, BorderLayout.WEST);
+        p.setBackground(color);
+        return marginedBoxText(p,6, 6, color);
+    }
+
+    public static JPanel marginedPanelWithText(String text, Color color) {
+        return marginedPanelWithText(text, FontUtility.plain(12), color);
+    }
+
+
+
+
 
 
 

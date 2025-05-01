@@ -16,20 +16,10 @@ import java.time.format.DateTimeFormatter;
 
 public class DashBoardScreen extends ScreenView {
 
-
     public DashBoardScreen(String user) {
         super(user);
 
     }
-
-//    @Override
-//    public JPanel setUp() {
-//        JPanel panel = new JPanel();
-//        panel.setBackground(Color.GREEN);
-//
-//        return panel;
-//    }
-
 
     @Override
     public JPanel body() {
@@ -39,7 +29,7 @@ public class DashBoardScreen extends ScreenView {
         b.setLayout(new BorderLayout());
 
         b.add(bodyCenterTop(), BorderLayout.NORTH);
-        b.add(fileInfo(), BorderLayout.CENTER);
+        b.add(bodyCenterMiddle(), BorderLayout.CENTER);
         b.add(bodyCenterBottom(), BorderLayout.SOUTH);
 
         return b;
@@ -56,7 +46,7 @@ public class DashBoardScreen extends ScreenView {
         p.setLayout(new BorderLayout());
 
         p.add(EffectsUtility.marginedBoxText(welcomeMessage()), BorderLayout.CENTER);
-        p.add(EffectsUtility.horizontalMargin(24), BorderLayout.SOUTH);
+        p.add(EffectsUtility.horizontalMargin(16), BorderLayout.SOUTH);
 
         return p;
     }
@@ -82,6 +72,7 @@ public class DashBoardScreen extends ScreenView {
         JLabel motorphLogo = ImageUtility.importedResizedInJLabel("/images/passwordLogoOriginalSize.jpg", 90, 52);
         motorphLogo.setVerticalAlignment(SwingConstants.CENTER);
         top.setBackground(ColorUtility.white);
+        //Edit height top
         top.setPreferredSize(new Dimension(200, 48));
         top.setLayout(new BorderLayout());
 
@@ -92,14 +83,70 @@ public class DashBoardScreen extends ScreenView {
     }
 
     //body middle size dependent on the size with the top and bottom
+    public JPanel bodyCenterMiddle() {
+        JPanel center = EffectsUtility.marginedBoxText(fileInfo(), 24,12);
+
+        return center;
+    }
+
+
     public JPanel fileInfo() {
         JPanel loadedDetails = new JPanel();
-        JLabel label = new JLabel("Employee details loaded file");
 
-        loadedDetails.setBackground(Color.DARK_GRAY);
+        JLabel label = new JLabel("Current Files");
+        label.setFont(FontUtility.important(16));
+        label.setHorizontalAlignment(SwingConstants.LEFT);
+        label.setVerticalAlignment(SwingConstants.TOP);
+        //Edit margin from "Current Files" to the next
+        label.setPreferredSize(new Dimension(12, 36));
 
-        loadedDetails.add(label);
+        loadedDetails.setBackground(ColorUtility.white);
+        loadedDetails.setLayout(new BorderLayout());
+
+        loadedDetails.add(label, BorderLayout.NORTH);
+        loadedDetails.add(fileDetails(), BorderLayout.CENTER);
         return loadedDetails;
+    }
+
+    public JPanel fileDetails() {
+        JPanel p = new JPanel();
+        p.setLayout(new GridLayout(3,4));
+        p.setBackground(ColorUtility.white);
+
+        JPanel changeDetails = changeFile("Change details");
+        JPanel changeAttendance = changeFile("Change attendance");
+
+        //title
+        p.add(EffectsUtility.marginedPanelWithText("Description", ColorUtility.grayLight));
+        p.add(EffectsUtility.marginedPanelWithText("File Name", ColorUtility.grayLight));
+        p.add(EffectsUtility.marginedPanelWithText("Date Open", ColorUtility.grayLight));
+        p.add(EffectsUtility.marginedPanelWithText("Action", ColorUtility.grayLight));
+
+        //employee details
+        p.add(EffectsUtility.marginedPanelWithText("Employee Details", FontUtility.important(12), ColorUtility.white));
+        p.add(EffectsUtility.marginedPanelWithText("employee-details.csv", ColorUtility.white));
+        p.add(EffectsUtility.marginedPanelWithText("January 1, 2000", ColorUtility.white));
+        p.add(changeDetails);
+
+        //employee attendance
+        p.add(EffectsUtility.marginedPanelWithText("Employee Attendance", FontUtility.important(12), ColorUtility.white));
+        p.add(EffectsUtility.marginedPanelWithText("employee-attendance.csv", ColorUtility.white));
+        p.add(EffectsUtility.marginedPanelWithText("January 1, 2000", ColorUtility.white));
+        p.add(changeAttendance);
+
+        return p;
+    }
+
+    public JPanel changeFile(String text) {
+        JPanel p = new JPanel();
+        JLabel label = new JLabel("+ " + text);
+        label.setFont(FontUtility.important(12));
+        label.setForeground(ColorUtility.white);
+        p.setBackground(ColorUtility.blueBright);
+        EffectsUtility.panelHover(p, ColorUtility.blueBright, ColorUtility.blueDark);
+        p.add(label);
+
+        return EffectsUtility.marginedBoxText(p, 4, 2);
     }
 
     //body bottom size editable
@@ -107,7 +154,7 @@ public class DashBoardScreen extends ScreenView {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
 
-        p.add(EffectsUtility.horizontalMargin(24), BorderLayout.NORTH);
+        p.add(EffectsUtility.horizontalMargin(16), BorderLayout.NORTH);
         p.add(EffectsUtility.marginedBoxText(announcement()), BorderLayout.CENTER);
 
         return p;
@@ -119,7 +166,7 @@ public class DashBoardScreen extends ScreenView {
         tableTitle.setForeground(ColorUtility.black);
 
         announceTable.setBackground(ColorUtility.white);
-        announceTable.setPreferredSize(new Dimension(210, 200));
+        announceTable.setPreferredSize(new Dimension(210, 400));
 
         announceTable.add(tableTitle);
         return announceTable;
