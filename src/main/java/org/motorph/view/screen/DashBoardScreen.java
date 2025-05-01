@@ -5,9 +5,11 @@ import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
+import org.motorph.view.screen.components.TableScreen;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.File;
 import java.time.LocalTime;
@@ -94,6 +96,7 @@ public class DashBoardScreen extends ScreenView {
         JPanel loadedDetails = new JPanel();
 
         JLabel label = new JLabel("Current Files");
+        label.setForeground(ColorUtility.grayDark);
         label.setFont(FontUtility.important(16));
         label.setHorizontalAlignment(SwingConstants.LEFT);
         label.setVerticalAlignment(SwingConstants.TOP);
@@ -142,9 +145,13 @@ public class DashBoardScreen extends ScreenView {
         JLabel label = new JLabel("+ " + text);
         label.setFont(FontUtility.important(12));
         label.setForeground(ColorUtility.white);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+
         p.setBackground(ColorUtility.blueBright);
+        p.setLayout(new BorderLayout());
+        p.add(label, BorderLayout.CENTER);
+
         EffectsUtility.panelHover(p, ColorUtility.blueBright, ColorUtility.blueDark);
-        p.add(label);
 
         return EffectsUtility.marginedBoxText(p, 4, 2);
     }
@@ -155,20 +162,27 @@ public class DashBoardScreen extends ScreenView {
         p.setLayout(new BorderLayout());
 
         p.add(EffectsUtility.horizontalMargin(16), BorderLayout.NORTH);
-        p.add(EffectsUtility.marginedBoxText(announcement()), BorderLayout.CENTER);
+        p.add(EffectsUtility.marginedBoxText(announcement(),24,12), BorderLayout.CENTER);
 
         return p;
     }
     public JPanel announcement() {
         JPanel announceTable = new JPanel();
         JLabel tableTitle = new JLabel("Announcement");
-        tableTitle.setFont(FontUtility.important(14));
-        tableTitle.setForeground(ColorUtility.black);
+        tableTitle.setForeground(ColorUtility.grayDark);
+        tableTitle.setFont(FontUtility.important(16));
+        tableTitle.setVerticalAlignment(SwingConstants.TOP);
+        tableTitle.setPreferredSize(new Dimension(32, 32));
 
         announceTable.setBackground(ColorUtility.white);
         announceTable.setPreferredSize(new Dimension(210, 400));
+        announceTable.setLayout(new BorderLayout());
 
-        announceTable.add(tableTitle);
+
+
+        announceTable.add(tableTitle, BorderLayout.NORTH);
+        announceTable.add(TableScreen.dashboardTable(), BorderLayout.CENTER);
+
         return announceTable;
     }
 
