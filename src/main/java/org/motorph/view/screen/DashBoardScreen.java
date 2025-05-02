@@ -178,9 +178,7 @@ public class DashBoardScreen extends ScreenView {
         announceTable.setPreferredSize(new Dimension(210, 400));
         announceTable.setLayout(new BorderLayout());
 
-
-
-        announceTable.add(tableTitle, BorderLayout.NORTH);
+        announceTable.add((tableTitle), BorderLayout.NORTH);
         announceTable.add(TableScreen.dashboardTable(), BorderLayout.CENTER);
 
         return announceTable;

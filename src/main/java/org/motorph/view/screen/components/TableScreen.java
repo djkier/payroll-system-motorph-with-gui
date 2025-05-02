@@ -35,7 +35,7 @@ public class TableScreen {
         model.addRow(newRow);
         model.addRow(newRow);
         model.addRow(newRow);
-        model.setRowCount(30);
+
 
         JTable table = new JTable(model);
         JTableHeader header = table.getTableHeader();
@@ -45,7 +45,6 @@ public class TableScreen {
         header.setPreferredSize(new Dimension(header.getWidth(), 30));
         header.setForeground(ColorUtility.grayDark);
         header.setBackground(ColorUtility.grayLight);
-
 
         table.setRowHeight(32);
         table.setBorder(BorderFactory.createLineBorder(ColorUtility.grayLight, 2));

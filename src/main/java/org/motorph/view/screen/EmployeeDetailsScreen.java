@@ -2,6 +2,8 @@ package org.motorph.view.screen;
 
 import org.motorph.model.samplefile.TestData;
 import org.motorph.utility.styling.ColorUtility;
+import org.motorph.utility.styling.EffectsUtility;
+import org.motorph.utility.styling.FontUtility;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -25,47 +27,82 @@ public class EmployeeDetailsScreen extends ScreenView {
 
     @Override
     public JPanel body() {
-        JPanel b = new JPanel();
-        b.setBackground(ColorUtility.transparent);
-        b.setSize(300, 30);
+        JPanel panel = new JPanel();
+        panel.setBackground(ColorUtility.white);
+        panel.setLayout(null);
 
-        JPanel c = new JPanel();
+        JPanel total = employeeHeader();
+        total.setBounds(16,16,740,120);
 
-        DefaultTableModel model = new DefaultTableModel(TestData.data, TestData.columns);
-        JTable table = new JTable(model);
+        JPanel grayStripe1 = EffectsUtility.horizontalMargin(24);
+        grayStripe1.setBounds(0,152, 800, 24);
 
-        table.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int row = table.rowAtPoint(e.getPoint());
-                if (row >= 0) {
-                    String name = table.getValueAt(row, 0).toString();
-                    String age = table.getValueAt(row, 1).toString();
-                    String city = table.getValueAt(row, 2).toString();
-
-                    JOptionPane.showMessageDialog(new JFrame()
-                            ,"",
-                            "Row Details",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        });
+        JPanel searchTitle = searchTitle();
+        searchTitle.setBounds(0, 176,740,50);
 
 
-
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBackground(ColorUtility.redLight);
-        scrollPane.setPreferredSize(new Dimension(800, 200));
-
-
-        b.add(scrollPane);
+        panel.add(total);
+        panel.add(grayStripe1);
+        panel.add(searchTitle);
 
 
-
-        return b;
+        return panel;
     }
 
     @Override
     public String setLabel() {
         return "Employee";
+    }
+
+    private JPanel employeeHeader() {
+        JPanel panel = new JPanel();
+        panel.setBackground(ColorUtility.white);
+        panel.setLayout(new GridLayout(1,3));
+
+        panel.add(compHeader("Employee", 34));
+        panel.add(compHeader("Regular", 26));
+        panel.add(compHeader("Probationary", 8));
+
+        return panel;
+    }
+
+    private JPanel compHeader(String status, int amount) {
+        JPanel panel = EffectsUtility.marginedBoxText(new JPanel(),6,6, ColorUtility.white);
+        panel.setBackground(ColorUtility.white);
+        panel.setBorder(EffectsUtility.borderColor(0,0,0,4));
+        panel.setLayout(null);
+
+        JLabel title = new JLabel("Total " + status);
+        JLabel number = new JLabel(String.valueOf(amount));
+
+        title.setFont(FontUtility.important(16));
+        number.setFont(FontUtility.plain(60));
+        number.setForeground(ColorUtility.blueBright);
+
+        title.setBounds(6,0, 200,20);
+        number.setBounds(90, 40, 200, 50);
+
+        panel.add(title);
+        panel.add(number);
+
+        return panel;
+    }
+
+    private JPanel searchTitle() {
+        JPanel panel = new JPanel();
+//        JRadioButton maleBtn = new JRadioButton("Male");
+//        JRadioButton femaleBtn = new JRadioButton("Female");
+//
+//        // Group the buttons so only one can be selected
+//        ButtonGroup group = new ButtonGroup();
+//        group.add(maleBtn);
+//        group.add(femaleBtn);
+//
+//
+//        panel.add(maleBtn);
+//        panel.add(femaleBtn);
+
+        return panel;
+
     }
 }
