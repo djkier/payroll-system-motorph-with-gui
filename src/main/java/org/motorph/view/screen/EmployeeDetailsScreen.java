@@ -1,15 +1,12 @@
 package org.motorph.view.screen;
 
-import org.motorph.model.samplefile.TestData;
+import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class EmployeeDetailsScreen extends ScreenView {
 
@@ -38,7 +35,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         grayStripe1.setBounds(0,152, 800, 24);
 
         JPanel searchTitle = searchTitle();
-        searchTitle.setBounds(0, 176,740,50);
+        searchTitle.setBounds(0, 176,740,200);
 
 
         panel.add(total);
@@ -90,17 +87,101 @@ public class EmployeeDetailsScreen extends ScreenView {
 
     private JPanel searchTitle() {
         JPanel panel = new JPanel();
-//        JRadioButton maleBtn = new JRadioButton("Male");
-//        JRadioButton femaleBtn = new JRadioButton("Female");
-//
-//        // Group the buttons so only one can be selected
-//        ButtonGroup group = new ButtonGroup();
-//        group.add(maleBtn);
-//        group.add(femaleBtn);
-//
-//
-//        panel.add(maleBtn);
-//        panel.add(femaleBtn);
+        panel.setBackground(ColorUtility.white);
+        panel.setLayout(null);
+
+        JLabel searchIcon = ImageUtility.importedImagesInJLabel("/images/tab-icon/search.png");
+        searchIcon.setBounds(20,0,30,50);
+
+        JLabel label = new JLabel("Searched by:");
+        label.setFont(FontUtility.important(18));
+        label.setBounds(50,0,200,50);
+
+        JPanel radioBtn = radioBtn();
+        radioBtn.setBounds(170, 8, 200,50);
+
+        JPanel addEmployee = addEmployee();
+        addEmployee.setBounds(582, 12, 160,28);
+
+        JPanel searchField = searchField();
+        searchField.setBounds(24, 40, 350,50);
+
+        panel.add(searchIcon);
+        panel.add(searchField);
+        panel.add(label);
+        panel.add(radioBtn);
+        panel.add(addEmployee);
+
+
+
+        return panel;
+    }
+
+    private JPanel radioBtn() {
+        JPanel panel = new JPanel();
+        panel.setBackground(ColorUtility.white);
+
+        JRadioButton idBtn = radioBtn("ID");
+        JRadioButton lnBtn = radioBtn("Last Name");
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(idBtn);
+        group.add(lnBtn);
+        idBtn.setSelected(true);
+
+        panel.add(idBtn);
+        panel.add(Box.createRigidArea(new Dimension(20, 0)));
+        panel.add(lnBtn);
+
+        return panel;
+    }
+
+    private JRadioButton radioBtn(String label) {
+        JRadioButton btn = new JRadioButton(label);
+        btn.setBackground(ColorUtility.white);
+        btn.setFont(FontUtility.plain(14));
+        btn.setForeground(ColorUtility.grayDark);
+        btn.setFocusPainted(false);
+
+        return btn;
+    }
+
+    private JPanel addEmployee() {
+        JPanel panel = new JPanel();
+
+//        panel.setLayout(new GridBagLayout());
+        panel.setBackground(ColorUtility.redDark);
+
+
+        JLabel addNew = new JLabel("+ Add Employee");
+        addNew.setFont(FontUtility.important(12));
+        addNew.setForeground(ColorUtility.white);
+
+
+        panel.add(addNew);
+
+        return panel;
+    }
+
+    private JPanel searchField() {
+        JPanel panel = new JPanel();
+        panel.setBackground(ColorUtility.white);
+
+        JTextField searchField = new JTextField(30);
+        searchField.setBackground(ColorUtility.white);
+        searchField.setForeground(Color.DARK_GRAY);
+        searchField.setFont(FontUtility.plain(12));
+
+        searchField.setBorder(BorderFactory.createLineBorder(ColorUtility.white, 1));
+        JPanel border = new JPanel();
+        border.add(searchField);
+        border.setBackground(ColorUtility.white);
+
+        JPanel searchBorder = EffectsUtility.marginedBoxText(border,0,0, ColorUtility.white);
+        searchBorder.setBorder(BorderFactory.createLineBorder(ColorUtility.graySurface, 2));
+        searchBorder.setBackground(ColorUtility.white);
+
+        panel.add(searchBorder);
 
         return panel;
 

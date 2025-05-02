@@ -33,7 +33,7 @@ public class MainAppViewController {
         this.payslip = new PayrollController();
 
 
-        this.psApp = new MainApplication("MotorPH Payroll System", dashboard.getPanel());
+        this.psApp = new MainApplication("MotorPH Payroll System", employee.getPanel());
         tabEvents();
     }
 
