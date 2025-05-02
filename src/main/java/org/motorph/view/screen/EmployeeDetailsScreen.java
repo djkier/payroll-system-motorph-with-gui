@@ -4,6 +4,7 @@ import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
+import org.motorph.view.screen.components.TableScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         grayStripe1.setBounds(0,152, 800, 24);
 
         JPanel searchTitle = searchTitle();
-        searchTitle.setBounds(0, 176,740,200);
+        searchTitle.setBounds(0, 176,752,600);
 
 
         panel.add(total);
@@ -101,18 +102,26 @@ public class EmployeeDetailsScreen extends ScreenView {
         radioBtn.setBounds(170, 8, 200,50);
 
         JPanel addEmployee = addEmployee();
-        addEmployee.setBounds(582, 12, 160,28);
+        addEmployee.setBounds(580, 12, 160,28);
 
         JPanel searchField = searchField();
         searchField.setBounds(24, 40, 350,50);
+
+        JLabel note = new JLabel("Click a row to view or edit.");
+        note.setFont(FontUtility.plainItalic(12));
+        note.setBounds(28, 62, 400, 50);
+
+
+        JScrollPane table = TableScreen.dashboardTable();
+        table.setBounds(28, 100, 724, 370);
 
         panel.add(searchIcon);
         panel.add(searchField);
         panel.add(label);
         panel.add(radioBtn);
         panel.add(addEmployee);
-
-
+        panel.add(note);
+        panel.add(table);
 
         return panel;
     }
@@ -149,23 +158,22 @@ public class EmployeeDetailsScreen extends ScreenView {
     private JPanel addEmployee() {
         JPanel panel = new JPanel();
 
-//        panel.setLayout(new GridBagLayout());
         panel.setBackground(ColorUtility.redDark);
 
-
-        JLabel addNew = new JLabel("+ Add Employee");
+        JLabel addNew = new JLabel("+ Add New Employee");
         addNew.setFont(FontUtility.important(12));
         addNew.setForeground(ColorUtility.white);
 
-
         panel.add(addNew);
+
+        EffectsUtility.panelHover(panel, ColorUtility.redDark, ColorUtility.redDarkHover);
 
         return panel;
     }
 
     private JPanel searchField() {
         JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.white);
+        panel.setBackground(ColorUtility.transparent);
 
         JTextField searchField = new JTextField(30);
         searchField.setBackground(ColorUtility.white);
@@ -186,4 +194,6 @@ public class EmployeeDetailsScreen extends ScreenView {
         return panel;
 
     }
+
+
 }

@@ -35,6 +35,7 @@ public class TableScreen {
         model.addRow(newRow);
         model.addRow(newRow);
         model.addRow(newRow);
+        model.setRowCount(30);
 
 
         JTable table = new JTable(model);

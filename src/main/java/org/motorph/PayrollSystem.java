@@ -24,6 +24,21 @@ public class PayrollSystem {
             mainApp.start();
         });
 
+        //features to be implemented
+        //when a row is click in employee tab the employee info will appear
+        //it will have the employee picture,and other details
+        //it will have edit option that when click will ask if needed to save edit or cancel
+        //remove button that will remove the employee.
+
+        //payslip still have a search bar and table.
+        //and ask if what kind of salary will be printed
+        //full month choose month
+        //customizable days and print button
+
+        //report will have a monthly and will use the
+        // added button from the payslip tab to choose employees
+        //will have a table that contains the list that will be printed on report
+
 
     }
 }
