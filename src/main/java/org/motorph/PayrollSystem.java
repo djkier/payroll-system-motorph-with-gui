@@ -31,13 +31,8 @@ public class PayrollSystem {
         //remove button that will remove the employee.
 
         //payslip still have a search bar and table.
-        //and ask if what kind of salary will be printed
-        //full month choose month
-        //customizable days and print button
-
-        //report will have a monthly and will use the
-        // added button from the payslip tab to choose employees
-        //will have a table that contains the list that will be printed on report
+        //add button description how many added
+        //button at the bottom to print for payslip
 
 
     }

@@ -55,7 +55,7 @@ public class ScreenView {
 
     private JPanel topLeftPanel() {
         JPanel leftBox = new JPanel();
-        leftBox.setPreferredSize(new Dimension(128, 80));
+        leftBox.setPreferredSize(new Dimension(210, 80));
         leftBox.setLayout(new BorderLayout());
         leftBox.setBackground(ColorUtility.transparent);
 
@@ -63,6 +63,7 @@ public class ScreenView {
         JLabel label = new JLabel(setLabel());
         label.setFont(FontUtility.plain(18));
         label.setHorizontalAlignment(SwingConstants.LEFT);
+
 
         JLabel space = new JLabel();
         space.setPreferredSize(new Dimension(24,80));

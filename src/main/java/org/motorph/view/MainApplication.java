@@ -2,9 +2,6 @@ package org.motorph.view;
 
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
-import org.motorph.view.screen.DashBoardScreen;
-import org.motorph.view.screen.ScreenPanel;
-import org.motorph.view.tab.Tab;
 import org.motorph.view.tab.TabPanel;
 
 import javax.swing.*;
