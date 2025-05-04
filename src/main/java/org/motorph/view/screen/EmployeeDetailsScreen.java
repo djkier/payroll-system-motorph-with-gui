@@ -112,7 +112,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         note.setBounds(28, 62, 400, 50);
 
 
-        JScrollPane table = TableScreen.dashboardTable();
+        JScrollPane table = TableScreen.employeeTable();
         table.setBounds(28, 100, 724, 370);
 
         panel.add(searchIcon);

@@ -179,6 +179,9 @@ public class DashBoardScreen extends ScreenView {
         announceTable.setLayout(new BorderLayout());
 
         announceTable.add((tableTitle), BorderLayout.NORTH);
+
+        //column title are "title, Start Date, End Date, Desciption,
+        //expected 5 to 10 rows only. adjust the table value sizes
         announceTable.add(TableScreen.dashboardTable(), BorderLayout.CENTER);
 
         return announceTable;
