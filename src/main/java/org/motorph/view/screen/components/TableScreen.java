@@ -26,15 +26,55 @@ public class TableScreen {
             }
         };
 
-        JScrollPane sp = scrollPane(generalTable((model)));
+        JTable table = generalTable(model);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        return sp;
+        for (int i = 0; i < table.getColumnCount(); i ++){
+                table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+        return scrollPane(table);
 
     }
 
     public static JScrollPane employeeTable() {
-        String[] columnTitles = {"Select", "ID", "Name", "Birthday", "Position", "Status"};
-        Object[][] data = {{false, "10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"}};
+        String[] columnTitles = {"ID", "Name", "Birthday", "Position", "Status"};
+        Object[][] data = {{"10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"},
+                {"10002", "Hello Woasdf", "1975-01-01", "Clerk", "Regular"},
+                {"10003", "hello po, new charadsfasdf", "1975-01-01", "Clerk", "Regular"}};
+
+        DefaultTableModel model = new DefaultTableModel(data, columnTitles) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+
+                return column == 0;
+            }
+
+        };
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        JTable table = generalTable(model);
+        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+//        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(3).setPreferredWidth(20);
+
+        for (int i = 0; i < table.getColumnCount(); i ++){
+            if (i != 1) {
+                table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+        }
+        return scrollPane(table);
+    }
+
+    public static JScrollPane payslipTable() {
+        String[] columnTitles = {"Add", "ID", "Name", "Birthday", "Position", "Status"};
+        Object[][] data = {{false, "10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"},
+                {false, "10002", "Hello Woasdf", "1975-01-01", "Clerk", "Regular"},
+                {false, "10003", "hello po, new charadsfasdf", "1975-01-01", "Clerk", "Regular"}};
 
         DefaultTableModel model = new DefaultTableModel(data, columnTitles) {
             @Override
@@ -50,10 +90,21 @@ public class TableScreen {
             }
         };
 
-        JScrollPane sp = scrollPane(generalTable((model)));
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
+        JTable table = generalTable(model);
+        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+//        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(1).setPreferredWidth(20);
 
-        return sp;
+        for (int i = 0; i < table.getColumnCount(); i ++){
+            if (i != 0 && i != 2) {
+                table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
+
+        }
+        return scrollPane(table);
     }
 
 
