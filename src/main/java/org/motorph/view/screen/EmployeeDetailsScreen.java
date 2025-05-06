@@ -131,6 +131,8 @@ public class EmployeeDetailsScreen extends ScreenView {
         panel.setBackground(ColorUtility.white);
 
         JRadioButton idBtn = radioBtn("ID");
+        idBtn.setPreferredSize(new Dimension(50,20));
+
         JRadioButton lnBtn = radioBtn("Last Name");
 
         ButtonGroup group = new ButtonGroup();
