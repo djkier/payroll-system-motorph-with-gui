@@ -20,6 +20,7 @@ public class ColorUtility {
     public static Color blueDark = cF("#1260C6");
     public static Color greenLight = cF("#CEE5D3");
     public static Color greenDark = cF("#0A7E22");
+    public static Color greenLightHover = cF("#0e9e2c");
     public static Color redDark = cF("#FD304D");
     public static Color redDarkHover = cF("#db1430");
     public static Color redLight = cF("#FFD6DB");

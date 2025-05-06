@@ -71,10 +71,10 @@ public class TableScreen {
     }
 
     public static JScrollPane payslipTable() {
-        String[] columnTitles = {"Add", "ID", "Name", "Birthday", "Position", "Status"};
-        Object[][] data = {{false, "10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"},
-                {false, "10002", "Hello Woasdf", "1975-01-01", "Clerk", "Regular"},
-                {false, "10003", "hello po, new charadsfasdf", "1975-01-01", "Clerk", "Regular"}};
+        String[] columnTitles = {"Add", "ID", "Name", "Available Attendance"};
+        Object[][] data = {{false, "10001", "Dela Cruz, J", "07-06-2024 to 12-31-2024"},
+                {false, "10002", "Hello Woasdf", "07-06-2024 to 12-31-2024"},
+                {false, "10003", "hello po, new charadsfasdf", "07-06-2024 to 12-31-2024"}};
 
         DefaultTableModel model = new DefaultTableModel(data, columnTitles) {
             @Override

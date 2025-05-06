@@ -3,6 +3,8 @@ package org.motorph.view.screen;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
+import org.motorph.view.screen.components.TableScreen;
+import org.motorph.view.tab.Tab;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -36,10 +38,16 @@ public class PayrollScreen extends ScreenView {
         selection.setBounds(0,0, 800, 230);
 
         JPanel horizontalDivider = EffectsUtility.horizontalDivider(2, ColorUtility.grayBorder);
-        horizontalDivider.setBounds(20, 210,744, 2);
+        horizontalDivider.setBounds(20, 200,744, 2);
+
+        JPanel table = tablePanel();
+        table.setBounds(0,210,780,500);
 
         b.add(horizontalDivider);
+        b.add(table);
         b.add(selection);
+
+
 
 
         return b;
@@ -50,6 +58,7 @@ public class PayrollScreen extends ScreenView {
         return "Payslip & Reports";
     }
 
+    //Choose Date range for payslip /report
     private JPanel selection(){
         JPanel panel = new JPanel();
         panel.setBackground(ColorUtility.white);
@@ -244,7 +253,7 @@ public class PayrollScreen extends ScreenView {
     private JPanel generateButton() {
         JPanel panel = new JPanel();
 
-        panel.setBackground(ColorUtility.greenDark);
+        panel.setBackground(ColorUtility.greenLightHover);
 
         JLabel addNew = new JLabel("Generate");
         addNew.setFont(FontUtility.important(14));
@@ -252,7 +261,7 @@ public class PayrollScreen extends ScreenView {
 
         panel.add(addNew);
 
-        EffectsUtility.panelHover(panel, ColorUtility.greenDark, ColorUtility.greenLight);
+        EffectsUtility.panelHover(panel, ColorUtility.greenLightHover, ColorUtility.greenDark);
 
         return panel;
     }
@@ -267,6 +276,45 @@ public class PayrollScreen extends ScreenView {
 
         panel.add(invalid);
 
+        return panel;
+    }
+
+    //table
+    private JPanel tablePanel() {
+        JPanel panel = new JPanel();
+        panel.setBackground(ColorUtility.white);
+        panel.setLayout(null);
+
+        JPanel tableTop = tableTop();
+        tableTop.setBackground(ColorUtility.white);
+
+
+        JScrollPane table = TableScreen.payslipTable();
+
+        tableTop.setBounds(20,0,744,40);
+        table.setBounds(20,44,744,400);
+
+        panel.add(tableTop);
+        panel.add(table);
+
+        return panel;
+
+    }
+
+    private JPanel tableTop() {
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+
+        JLabel label = new JLabel("Searched by:");
+        label.setFont(FontUtility.important(14));
+        label.setBounds(0,0,150,20);
+
+        JPanel searchBar = EffectsUtility.searchField(15);
+        searchBar.setBounds(90,0,200,40);
+        searchBar.setBackground(ColorUtility.white);
+
+        panel.add(label);
+        panel.add(searchBar);
         return panel;
     }
 

@@ -135,6 +135,29 @@ public class EffectsUtility {
         return marginedPanelWithText(text, FontUtility.plain(12), color);
     }
 
+    public static JPanel searchField(int columns) {
+        JPanel panel = new JPanel();
+        panel.setBackground(ColorUtility.transparent);
+
+        JTextField searchField = new JTextField(columns);
+        searchField.setBackground(ColorUtility.white);
+        searchField.setForeground(Color.DARK_GRAY);
+        searchField.setFont(FontUtility.plain(12));
+
+        searchField.setBorder(BorderFactory.createLineBorder(ColorUtility.white, 1));
+        JPanel border = new JPanel();
+        border.add(searchField);
+        border.setBackground(ColorUtility.white);
+
+        JPanel searchBorder = EffectsUtility.marginedBoxText(border, 0, 0, ColorUtility.white);
+        searchBorder.setBorder(BorderFactory.createLineBorder(ColorUtility.graySurface, 2));
+        searchBorder.setBackground(ColorUtility.white);
+
+        panel.add(searchBorder);
+
+        return panel;
+    }
+
 
 
 

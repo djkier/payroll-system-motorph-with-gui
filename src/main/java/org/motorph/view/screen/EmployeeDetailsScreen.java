@@ -104,7 +104,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         JPanel addEmployee = addEmployee();
         addEmployee.setBounds(580, 12, 160,28);
 
-        JPanel searchField = searchField();
+        JPanel searchField = EffectsUtility.searchField(30);
         searchField.setBounds(24, 40, 350,50);
 
         JLabel note = new JLabel("Click a row to view or edit.");
