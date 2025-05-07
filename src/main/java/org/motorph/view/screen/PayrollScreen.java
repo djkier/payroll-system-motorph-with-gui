@@ -38,10 +38,10 @@ public class PayrollScreen extends ScreenView {
         selection.setBounds(0,0, 800, 230);
 
         JPanel horizontalDivider = EffectsUtility.horizontalDivider(2, ColorUtility.grayBorder);
-        horizontalDivider.setBounds(20, 200,744, 2);
+        horizontalDivider.setBounds(20, 140,744, 2);
 
         JPanel table = tablePanel();
-        table.setBounds(0,210,780,500);
+        table.setBounds(0,150,780,500);
 
         b.add(horizontalDivider);
         b.add(table);
@@ -112,10 +112,9 @@ public class PayrollScreen extends ScreenView {
             optionsComponent(customRangePanel, fullMonthPanel);
         });
 
-        JPanel generateButton = generateButton();
 
-        JPanel errorMessage = errorMessage();
-
+        JPanel errorMessageStart = errorMessage();
+        JPanel errorMessageEnd = errorMessage();
 
 
         title.setBounds(0, 0, 400, 20);
@@ -123,15 +122,21 @@ public class PayrollScreen extends ScreenView {
         fullMonthRadio.setBounds(50,30,150,50);
         customRangeRadio.setBounds(50, 70, 150, 50);
         cardPanel.setBounds(210, 30, 800, 90);
-        errorMessage.setBounds(0,125, 754, 25);
-        generateButton.setBounds(280, 154, 180,30);
+        errorMessageStart.setBounds(294,68, 100, 20);
+        errorMessageEnd.setBounds(536,68, 100, 20);
+
 
         panel.add(title);
         panel.add(fullMonthRadio);
         panel.add(customRangeRadio);
+        panel.add(errorMessageStart);
+        panel.add(errorMessageEnd);
         panel.add(cardPanel);
-        panel.add(errorMessage);
-        panel.add(generateButton);
+
+        //set error message false
+        errorMessageStart.setVisible(false);
+        errorMessageEnd.setVisible(false);
+
 
 
 
@@ -250,29 +255,20 @@ public class PayrollScreen extends ScreenView {
         setEnabledComponent(setFalse, false);
     }
 
-    private JPanel generateButton() {
-        JPanel panel = new JPanel();
 
-        panel.setBackground(ColorUtility.greenLightHover);
-
-        JLabel addNew = new JLabel("Generate");
-        addNew.setFont(FontUtility.important(14));
-        addNew.setForeground(ColorUtility.white);
-
-        panel.add(addNew);
-
-        EffectsUtility.panelHover(panel, ColorUtility.greenLightHover, ColorUtility.greenDark);
-
-        return panel;
-    }
 
     private JPanel errorMessage() {
         JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.white);
+        panel.setBackground(ColorUtility.transparent);
+        panel.setLayout(null);
 
-        JLabel invalid = new JLabel("Invalid start date");
-        invalid.setFont(FontUtility.important(12));
+        JLabel invalid = new JLabel("INVALID");
+        invalid.setFont(FontUtility.important(10));
         invalid.setForeground(ColorUtility.redDark);
+        invalid.setBounds(0,0,100,20);
+
+
+
 
         panel.add(invalid);
 
@@ -285,17 +281,29 @@ public class PayrollScreen extends ScreenView {
         panel.setBackground(ColorUtility.white);
         panel.setLayout(null);
 
+
         JPanel tableTop = tableTop();
         tableTop.setBackground(ColorUtility.white);
 
 
         JScrollPane table = TableScreen.payslipTable();
 
+        JPanel numberSelectedPanel = numberSelected();
+
+        JPanel tableBottom = tableBottom();
+
+
+
         tableTop.setBounds(20,0,744,40);
-        table.setBounds(20,44,744,400);
+        numberSelectedPanel.setBounds(562,38,200,20);
+        table.setBounds(20,60,744,392);
+        tableBottom.setBounds(160,460,500,30);
 
         panel.add(tableTop);
+        panel.add(numberSelectedPanel);
+        panel.add(tableBottom);
         panel.add(table);
+
 
         return panel;
 
@@ -307,14 +315,116 @@ public class PayrollScreen extends ScreenView {
 
         JLabel label = new JLabel("Searched by:");
         label.setFont(FontUtility.important(14));
-        label.setBounds(0,0,150,20);
 
-        JPanel searchBar = EffectsUtility.searchField(15);
-        searchBar.setBounds(90,0,200,40);
+        JPanel radioBtn = radioBtn();
+
+
+        JPanel searchBar = EffectsUtility.searchField(18);
         searchBar.setBackground(ColorUtility.white);
+
+        JPanel selectAll = selectorButton("Select All", ColorUtility.greenLightHover, ColorUtility.greenDark);
+        JPanel unselectAll = selectorButton("Unselect All", ColorUtility.redDark, ColorUtility.redDarkHover);
+
+
+        label.setBounds(0,0,150,20);
+        searchBar.setBounds(134,0,240,40);
+        radioBtn.setBounds(0,20,140,20);
+
+        selectAll.setBounds( 430,8,150,24);
+        unselectAll.setBounds(600,8,150,24);
 
         panel.add(label);
         panel.add(searchBar);
+        panel.add(radioBtn);
+
+        panel.add(selectAll);
+        panel.add(unselectAll);
+
+
+        return panel;
+    }
+
+    private JPanel tableBottom(){
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(ColorUtility.white);
+
+        JPanel payslipButton = selectorButton("Print Payslip/s", ColorUtility.blueBright, ColorUtility.blueDark);
+
+        JPanel reportButton = selectorButton("Print Payroll Summary", ColorUtility.blueBright, ColorUtility.blueDark);
+
+        payslipButton.setBounds(0,0,200,30);
+        reportButton.setBounds(230,0,200,30);
+
+        panel.add(payslipButton);
+        panel.add(reportButton);
+
+        return panel;
+    }
+
+    private JPanel selectorButton(String buttonName, Color lightColor, Color darkColor) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        panel.setBackground(lightColor);
+
+        JLabel addNew = new JLabel(buttonName);
+        addNew.setFont(FontUtility.important(12));
+        addNew.setForeground(ColorUtility.white);
+        addNew.setHorizontalAlignment(SwingConstants.CENTER);
+
+        panel.add(addNew, BorderLayout.CENTER);
+
+        EffectsUtility.panelHover(panel, lightColor, darkColor);
+
+        return panel;
+    }
+
+    private JPanel radioBtn() {
+        JPanel panel = new JPanel();
+
+        panel.setLayout(new BorderLayout());
+
+        JRadioButton idBtn = radioBtn("ID");
+        idBtn.setPreferredSize(new Dimension(50,20));
+        idBtn.setBackground(ColorUtility.white);
+
+        JRadioButton lnBtn = radioBtn("Last Name");
+        lnBtn.setBackground(ColorUtility.white);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(idBtn);
+        group.add(lnBtn);
+        idBtn.setSelected(true);
+
+
+        panel.add(idBtn, BorderLayout.WEST);
+//        panel.add(Box.createRigidArea(new Dimension(10, 0)));
+        panel.add(lnBtn, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+    private JRadioButton radioBtn(String label) {
+        JRadioButton btn = new JRadioButton(label);
+        btn.setBackground(ColorUtility.white);
+        btn.setFont(FontUtility.plain(12));
+        btn.setForeground(ColorUtility.grayDark);
+        btn.setFocusPainted(false);
+
+        return btn;
+    }
+
+    private JPanel numberSelected() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBackground(ColorUtility.white);
+
+        JLabel numberOfSelected = new JLabel("100 employees selected");
+        numberOfSelected.setFont(FontUtility.plainItalic(12));
+
+        panel.add(numberOfSelected, BorderLayout.EAST);
+
         return panel;
     }
 
