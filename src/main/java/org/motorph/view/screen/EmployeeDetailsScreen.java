@@ -7,6 +7,7 @@ import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
 import org.motorph.view.screen.components.TableScreen;
+import org.motorph.view.tab.Tab;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -17,13 +18,14 @@ import java.util.ArrayList;
 public class EmployeeDetailsScreen extends ScreenView {
     private EmployeeRepository employeeRepository;
     private boolean isIdSelectedInRadio;
+    private JScrollPane tableView;
 
 
     public EmployeeDetailsScreen(EmployeeRepository employeeRepository) {
         super(employeeRepository);
         this.employeeRepository = employeeRepository;
         this.isIdSelectedInRadio = true;
-
+        this.tableView = new JScrollPane();
 
     }
 
@@ -232,14 +234,42 @@ public class EmployeeDetailsScreen extends ScreenView {
                     }
 
                 }
+                JScrollPane newScrollPane = TableScreen.employeeTable(data);
+                newScrollPane.setBounds(28, 100, 724, 370);
+                newScrollPane.setName("newScrollPane");
+
+                if (isComponentIsExisting("newScrollPane")) {
+                    removeByName("newScrollPane");
+                    panel.add(newScrollPane);
+                } else {
+                    panel.remove(scrollPane);
+                    panel.add(newScrollPane);
+                }
 
 
-                panel.remove(scrollPane);
-
-                panel.add(scrollPane);
                 panel.revalidate();
                 panel.repaint();
 
+
+
+            }
+
+            private boolean isComponentIsExisting(String name) {
+                for (Component comp : panel.getComponents()) {
+                    if (name.equalsIgnoreCase(comp.getName())){
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            private void removeByName(String name) {
+                for (Component comp : panel.getComponents()) {
+                    if (name.equalsIgnoreCase(comp.getName())) {
+                        panel.remove(comp);
+                    }
+                }
             }
         });
     }
