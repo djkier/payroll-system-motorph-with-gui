@@ -12,10 +12,12 @@ import java.awt.*;
 
 public class EmployeeDetailsScreen extends ScreenView {
     private EmployeeRepository employeeRepository;
+    private boolean isIdSelectedInRadio;
 
     public EmployeeDetailsScreen(EmployeeRepository employeeRepository) {
         super(employeeRepository);
         this.employeeRepository = employeeRepository;
+        this.isIdSelectedInRadio = true;
     }
 
 
@@ -95,7 +97,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         label.setBounds(50,0,200,50);
 
         JPanel radioBtn = radioBtn();
-        radioBtn.setBounds(170, 8, 200,50);
+        radioBtn.setBounds(200, 16, 250,20);
 
         JPanel addEmployee = addEmployee();
         addEmployee.setBounds(580, 12, 160,28);
@@ -124,10 +126,11 @@ public class EmployeeDetailsScreen extends ScreenView {
 
     private JPanel radioBtn() {
         JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
         panel.setBackground(ColorUtility.white);
 
         JRadioButton idBtn = radioBtn("ID");
-        idBtn.setPreferredSize(new Dimension(50,20));
+        idBtn.setPreferredSize(new Dimension(50,10));
 
         JRadioButton lnBtn = radioBtn("Last Name");
 
@@ -136,11 +139,22 @@ public class EmployeeDetailsScreen extends ScreenView {
         group.add(lnBtn);
         idBtn.setSelected(true);
 
-        panel.add(idBtn);
-        panel.add(Box.createRigidArea(new Dimension(20, 0)));
-        panel.add(lnBtn);
+        radioListener(idBtn);
+        radioListener(lnBtn);
+
+        panel.add(idBtn, BorderLayout.WEST);
+        panel.add(lnBtn, BorderLayout.CENTER);
 
         return panel;
+    }
+
+    private void radioListener(JRadioButton button) {
+        button.addActionListener(e -> {
+            if (button.isSelected()) {
+                //To be use by the searchfield
+                isIdSelectedInRadio = button.getText().equalsIgnoreCase("ID");
+            }
+        });
     }
 
     private JRadioButton radioBtn(String label) {
