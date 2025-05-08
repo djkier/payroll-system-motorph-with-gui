@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeRepository {
     private HashMap<String, EmployeeDetails> repository;
@@ -57,14 +58,25 @@ public class EmployeeRepository {
     }
 
     //when used, be sure that the args is trimmed
-    public ArrayList<EmployeeDetails> getEmployeeWithIdStartsWith(String id) {
-        ArrayList<EmployeeDetails> details = new ArrayList<>();
+    public ArrayList<String> getEmployeeWithIdStartsWith(String id) {
+        ArrayList<String> details = new ArrayList<>();
         for (String key : repository.keySet()) {
             if (key.startsWith(id)) {
-                details.add(getEmployeeById(key));
+                details.add(key);
             }
         }
         return details;
+    }
+
+    public Object[][] getEmployeeTableUsingId(ArrayList<String> data) {
+        ArrayList<Integer> idStartsWith = new ArrayList<>();
+        for (String id : data) {
+            idStartsWith.add(Integer.valueOf(id));
+        }
+        ArrayList<String> stringedId = sortedIntToStrArray(idStartsWith);
+
+        return tableData(stringedId);
+
     }
 
     //when used, be sure that the args is trimmed
@@ -84,21 +96,33 @@ public class EmployeeRepository {
             sortId.add(Integer.valueOf(key));
         }
 
-        Collections.sort(sortId);
+        ArrayList<String> stringedId = sortedIntToStrArray(sortId);
+
+        return tableData(stringedId);
+    }
+
+    public Object[][] tableData(ArrayList<String> list) {
 
         List<Object[]> dataList = new ArrayList<>();
-        for (Integer id : sortId) {
-            String rewrap = String.valueOf(id);
+        for (String id : list) {
             dataList.add(new Object[] {
-                    repository.get(rewrap).getId(),
-                    repository.get(rewrap).getFullName(),
-                    repository.get(rewrap).getBirthDate(),
-                    repository.get(rewrap).getPosition(),
-                    repository.get(rewrap).getStatus()
+                    repository.get(id).getId(),
+                    repository.get(id).getFullName(),
+                    repository.get(id).getBirthDate(),
+                    repository.get(id).getPosition(),
+                    repository.get(id).getStatus()
             });
         }
 
         return dataList.toArray(new Object[dataList.size()][]);
 
+    }
+
+    private ArrayList<String> sortedIntToStrArray(ArrayList<Integer> intArray) {
+        Collections.sort(intArray);
+
+        return intArray.stream()
+                .map(String::valueOf)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

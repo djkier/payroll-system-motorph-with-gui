@@ -135,11 +135,10 @@ public class EffectsUtility {
         return marginedPanelWithText(text, FontUtility.plain(12), color);
     }
 
-    public static JPanel searchField(int columns) {
+    public static JPanel searchField(JTextField searchField) {
         JPanel panel = new JPanel();
         panel.setBackground(ColorUtility.transparent);
 
-        JTextField searchField = new JTextField(columns);
         searchField.setBackground(ColorUtility.white);
         searchField.setForeground(Color.DARK_GRAY);
         searchField.setFont(FontUtility.plain(12));

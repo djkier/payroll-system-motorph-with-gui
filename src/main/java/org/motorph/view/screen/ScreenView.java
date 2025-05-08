@@ -5,6 +5,7 @@ import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
+import org.motorph.view.screen.components.TableScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ public class ScreenView {
     private String user;
     private Object[][] tableData;
     private JPanel panel;
+
 
     public ScreenView(EmployeeRepository employeeRepository) {
         this.user = "";
@@ -26,6 +28,7 @@ public class ScreenView {
         this.panel = setUp();
 
     }
+
 
     public Object[][] getTableData() {
         return tableData;

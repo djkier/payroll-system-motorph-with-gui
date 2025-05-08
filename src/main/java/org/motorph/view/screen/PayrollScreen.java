@@ -318,8 +318,9 @@ public class PayrollScreen extends ScreenView {
 
         JPanel radioBtn = radioBtn();
 
+        JTextField searchArea = new JTextField(18);
 
-        JPanel searchBar = EffectsUtility.searchField(18);
+        JPanel searchBar = EffectsUtility.searchField(searchArea);
         searchBar.setBackground(ColorUtility.white);
 
         JPanel selectAll = selectorButton("Select All", ColorUtility.greenLightHover, ColorUtility.greenDark);

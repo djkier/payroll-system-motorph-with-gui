@@ -1,5 +1,6 @@
 package org.motorph.view.screen;
 
+import org.motorph.model.datarepositories.EmployeeDetails;
 import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
@@ -8,16 +9,22 @@ import org.motorph.utility.styling.FontUtility;
 import org.motorph.view.screen.components.TableScreen;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class EmployeeDetailsScreen extends ScreenView {
     private EmployeeRepository employeeRepository;
     private boolean isIdSelectedInRadio;
 
+
     public EmployeeDetailsScreen(EmployeeRepository employeeRepository) {
         super(employeeRepository);
         this.employeeRepository = employeeRepository;
         this.isIdSelectedInRadio = true;
+
+
     }
 
 
@@ -102,7 +109,8 @@ public class EmployeeDetailsScreen extends ScreenView {
         JPanel addEmployee = addEmployee();
         addEmployee.setBounds(580, 12, 160,28);
 
-        JPanel searchField = EffectsUtility.searchField(30);
+        JTextField textField = new JTextField(30);
+        JPanel searchField = EffectsUtility.searchField(textField);
         searchField.setBounds(24, 40, 350,50);
 
         JLabel note = new JLabel("Click a row to view or edit.");
@@ -120,6 +128,8 @@ public class EmployeeDetailsScreen extends ScreenView {
         panel.add(addEmployee);
         panel.add(note);
         panel.add(table);
+
+        searchFieldListener(textField, panel, table);
 
         return panel;
     }
@@ -148,15 +158,6 @@ public class EmployeeDetailsScreen extends ScreenView {
         return panel;
     }
 
-    private void radioListener(JRadioButton button) {
-        button.addActionListener(e -> {
-            if (button.isSelected()) {
-                //To be use by the searchfield
-                isIdSelectedInRadio = button.getText().equalsIgnoreCase("ID");
-            }
-        });
-    }
-
     private JRadioButton radioBtn(String label) {
         JRadioButton btn = new JRadioButton(label);
         btn.setBackground(ColorUtility.white);
@@ -183,29 +184,67 @@ public class EmployeeDetailsScreen extends ScreenView {
         return panel;
     }
 
-    private JPanel searchField() {
-        JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.transparent);
-
-        JTextField searchField = new JTextField(30);
-        searchField.setBackground(ColorUtility.white);
-        searchField.setForeground(Color.DARK_GRAY);
-        searchField.setFont(FontUtility.plain(12));
-
-        searchField.setBorder(BorderFactory.createLineBorder(ColorUtility.white, 1));
-        JPanel border = new JPanel();
-        border.add(searchField);
-        border.setBackground(ColorUtility.white);
-
-        JPanel searchBorder = EffectsUtility.marginedBoxText(border,0,0, ColorUtility.white);
-        searchBorder.setBorder(BorderFactory.createLineBorder(ColorUtility.graySurface, 2));
-        searchBorder.setBackground(ColorUtility.white);
-
-        panel.add(searchBorder);
-
-        return panel;
-
+    //Logic
+    private void radioListener(JRadioButton button) {
+        button.addActionListener(e -> {
+            if (button.isSelected()) {
+                //To be use by the searchfield
+                isIdSelectedInRadio = button.getText().equalsIgnoreCase("ID");
+            }
+        });
     }
+
+    private void searchFieldListener(JTextField textField, JPanel panel, JScrollPane scrollPane) {
+
+
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                showEmployee();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                showEmployee();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                showEmployee();
+            }
+
+            private void showEmployee() {
+                ArrayList<String> availableData = employeeRepository.getEmployeeWithIdStartsWith(textField.getText().trim());
+                Object[][] data;
+//                System.out.println(availableData.size());
+
+                if (!availableData.isEmpty()) {
+                    data = employeeRepository.getEmployeeTableUsingId(availableData);
+                } else {
+                    data = new Object[][]{{"", "No Record Found", "", ""}};
+                }
+
+                for (Object[] row : data ) {
+                    if (row[0].equals("")){
+                        System.out.println("No Record Found");
+                    } else {
+                        System.out.println(row[0]);
+                    }
+
+                }
+
+
+                panel.remove(scrollPane);
+
+                panel.add(scrollPane);
+                panel.revalidate();
+                panel.repaint();
+
+            }
+        });
+    }
+
+
 
 
 }
