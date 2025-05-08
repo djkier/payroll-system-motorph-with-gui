@@ -87,6 +87,10 @@ public class EmployeeDetails {
         this.firstName = firstName;
     }
 
+    public String getFullName() {
+        return this.lastName + ", " + this.firstName;
+    }
+
     public String getBirthDate() {
         return birthDate;
     }

@@ -1,5 +1,7 @@
 package org.motorph.view.screen;
 
+import org.motorph.model.datarepositories.DataProcessRepo;
+import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
@@ -8,17 +10,32 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ScreenView {
-    private JPanel panel;
-    private String user;
 
+    private String user;
+    private Object[][] tableData;
+    private JPanel panel;
+
+    public ScreenView(EmployeeRepository employeeRepository) {
+        this.user = "";
+        this.tableData = employeeRepository.employeeTableData();
+        this.panel = setUp();
+    }
 
     public ScreenView() {
         this.user = "";
         this.panel = setUp();
+
     }
 
-    public JPanel getView() {
+    public Object[][] getTableData() {
+        return tableData;
+    }
 
+
+
+    public JPanel getView() {
+        //refresh screen
+        this.panel = setUp();
         return panel;
     }
     public String getUser() {

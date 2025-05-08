@@ -1,5 +1,6 @@
 package org.motorph.view.screen;
 
+import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
@@ -10,8 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EmployeeDetailsScreen extends ScreenView {
+    private EmployeeRepository employeeRepository;
 
-    public EmployeeDetailsScreen() {
+    public EmployeeDetailsScreen(EmployeeRepository employeeRepository) {
+        super(employeeRepository);
+        this.employeeRepository = employeeRepository;
     }
 
 
@@ -27,13 +31,13 @@ public class EmployeeDetailsScreen extends ScreenView {
         JPanel grayStripe1 = EffectsUtility.horizontalMargin(24);
         grayStripe1.setBounds(0,152, 800, 24);
 
-        JPanel searchTitle = searchTitle();
-        searchTitle.setBounds(0, 176,752,600);
+        JPanel employeeTable = employeeTable();
+        employeeTable.setBounds(0, 176,752,600);
 
 
         panel.add(total);
         panel.add(grayStripe1);
-        panel.add(searchTitle);
+        panel.add(employeeTable);
 
 
         return panel;
@@ -78,7 +82,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         return panel;
     }
 
-    private JPanel searchTitle() {
+    private JPanel employeeTable() {
         JPanel panel = new JPanel();
         panel.setBackground(ColorUtility.white);
         panel.setLayout(null);
@@ -104,7 +108,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         note.setBounds(28, 62, 400, 50);
 
 
-        JScrollPane table = TableScreen.employeeTable();
+        JScrollPane table = TableScreen.employeeTable(getTableData());
         table.setBounds(28, 100, 724, 370);
 
         panel.add(searchIcon);

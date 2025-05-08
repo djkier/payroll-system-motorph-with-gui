@@ -38,11 +38,15 @@ public class TableScreen {
 
     }
 
-    public static JScrollPane employeeTable() {
+    public static JScrollPane employeeTable(Object[][] data) {
         String[] columnTitles = {"ID", "Name", "Birthday", "Position", "Status"};
-        Object[][] data = {{"10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"},
-                {"10002", "Hello Woasdf", "1975-01-01", "Clerk", "Regular"},
-                {"10003", "hello po, new charadsfasdf", "1975-01-01", "Clerk", "Regular"}};
+//        Object[][] data = {{"10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"},
+//                {"10002", "Hello Woasdf", "1975-01-01", "Clerk", "Regular"},
+//                {"10003", "hello po, new charadsfasdf", "1975-01-01", "Clerk", "Regular"}};
+//        Object[][] data = dataModel;
+        if (data == null) {
+            data = new Object[][]{{"", "No Record Found", "", "", ""}};
+        }
 
         DefaultTableModel model = new DefaultTableModel(data, columnTitles) {
             @Override

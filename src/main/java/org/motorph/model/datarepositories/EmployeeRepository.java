@@ -3,7 +3,9 @@ package org.motorph.model.datarepositories;
 import org.motorph.utility.TypeCleaner;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class EmployeeRepository {
     private HashMap<String, EmployeeDetails> repository;
@@ -74,5 +76,29 @@ public class EmployeeRepository {
             }
         }
         return details;
+    }
+
+    public Object[][] employeeTableData() {
+        ArrayList<Integer> sortId = new ArrayList<>();
+        for (String key : repository.keySet()) {
+            sortId.add(Integer.valueOf(key));
+        }
+
+        Collections.sort(sortId);
+
+        List<Object[]> dataList = new ArrayList<>();
+        for (Integer id : sortId) {
+            String rewrap = String.valueOf(id);
+            dataList.add(new Object[] {
+                    repository.get(rewrap).getId(),
+                    repository.get(rewrap).getFullName(),
+                    repository.get(rewrap).getBirthDate(),
+                    repository.get(rewrap).getPosition(),
+                    repository.get(rewrap).getStatus()
+            });
+        }
+
+        return dataList.toArray(new Object[dataList.size()][]);
+
     }
 }

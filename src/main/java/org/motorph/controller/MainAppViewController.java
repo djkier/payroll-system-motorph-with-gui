@@ -1,6 +1,7 @@
 package org.motorph.controller;
 
 import org.motorph.model.FileHandler;
+import org.motorph.model.datarepositories.DataProcessRepo;
 import org.motorph.view.MainApplication;
 
 
@@ -18,18 +19,23 @@ public class MainAppViewController {
     private String user;
 
     private FileHandler file;
+    private DataProcessRepo dataProcessRepo;
 
     public MainAppViewController(String user) {
         this.user = user;
         //data
         this.file = new FileHandler();
         this.file.preLoadEmpDetails();
-        this.file.preLoadEmpDetails();
+        this.file.preLoadAttendance();
+        this.dataProcessRepo = file.getRepository();
+
+//        System.out.println(dataProcessRepo.getEmployeeRepository().getEmployeeById("10001").toString());
+
         //view
         this.dashboard = new DashboardController();
-        this.dashboard.setUser(user);
-        this.employee = new EmployeeController();
+        this.employee = new EmployeeController(dataProcessRepo);
         this.payslip = new PayrollController();
+        dashboardSetUp();
 
         //App name and the loaded screen when open
         this.psApp = new MainApplication("MotorPH Payroll System");
@@ -40,6 +46,11 @@ public class MainAppViewController {
     public void start() {
         psApp.start();
     }
+
+    private void dashboardSetUp() {
+        this.dashboard.setUser(user);
+    }
+
 
     public void tabEvents() {
         tabClick(psApp.dashboardTab(), dashboard.getPanel());

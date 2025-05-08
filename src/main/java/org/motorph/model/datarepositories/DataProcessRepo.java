@@ -12,6 +12,14 @@ public class DataProcessRepo {
         this.attendanceRepository = new AttendanceRepository();
     }
 
+    public EmployeeRepository getEmployeeRepository() {
+        return employeeRepository;
+    }
+
+    public void setEmployeeRepository(EmployeeRepository er) {
+        this.employeeRepository = er;
+    }
+
     //method for processing employee
     //with an assumption that the file being pass is a valid employee details
     public void processEmployeeDetails(ArrayList<String> file) {
