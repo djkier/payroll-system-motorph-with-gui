@@ -18,8 +18,8 @@ import java.time.format.DateTimeFormatter;
 
 public class DashBoardScreen extends ScreenView {
 
-    public DashBoardScreen(String user) {
-        super(user);
+    public DashBoardScreen() {
+
 
     }
 

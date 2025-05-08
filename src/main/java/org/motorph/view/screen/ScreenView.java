@@ -12,13 +12,9 @@ public class ScreenView {
     private String user;
 
 
-    public ScreenView(String user) {
-        this.user = user;
-        this.panel = setUp();
-    }
-
     public ScreenView() {
-        this("hello");
+        this.user = "";
+        this.panel = setUp();
     }
 
     public JPanel getView() {
@@ -27,6 +23,10 @@ public class ScreenView {
     }
     public String getUser() {
         return this.user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public JPanel setUp() {

@@ -13,12 +13,13 @@ public class MainApplication {
     private JPanel screenPanel;
 
 
-    public MainApplication(String appTitle, JPanel panel) {
+    public MainApplication(String appTitle) {
         this.tabPanel = new TabPanel();
-        this.screenPanel = panel;
+        this.screenPanel = new JPanel();
 
         //set up last
         this.app = setUpApp(appTitle);
+
     }
 
     private JFrame setUpApp(String title) {

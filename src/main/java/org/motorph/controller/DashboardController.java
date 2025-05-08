@@ -7,9 +7,13 @@ import javax.swing.*;
 public class DashboardController {
     private DashBoardScreen dashboardScreen;
 
-    public DashboardController(String user) {
+    public DashboardController() {
 
-        this.dashboardScreen = new DashBoardScreen(user);
+        this.dashboardScreen = new DashBoardScreen();
+    }
+
+    public void setUser(String user) {
+        this.dashboardScreen.setUser(user);
     }
 
     public JPanel getPanel() {

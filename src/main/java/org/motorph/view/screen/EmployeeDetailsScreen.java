@@ -12,16 +12,8 @@ import java.awt.*;
 public class EmployeeDetailsScreen extends ScreenView {
 
     public EmployeeDetailsScreen() {
-        super("Employee Details");
     }
 
-//    @Override
-//    public JPanel setUp() {
-//        JPanel panel = new JPanel();
-//        panel.setBackground(Color.ORANGE);
-//
-//        return panel;
-//    }
 
     @Override
     public JPanel body() {

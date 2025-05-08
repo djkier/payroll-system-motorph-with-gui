@@ -105,7 +105,13 @@ public class FileHandler {
         return list;
     }
 
+    public Boolean isValidEmployeeDetailFile(ArrayList<String> file) {
+        return isValidFile(file, FileHeader.detailHeader);
+    }
 
+    public Boolean isValidAttendanceFile(ArrayList<String> file) {
+        return isValidFile(file, FileHeader.attendanceHeader);
+    }
 
     public Boolean isValidFile(ArrayList<String> file, String comparedTo) {
         String[] w = comparedTo.split(",");
@@ -135,13 +141,7 @@ public class FileHandler {
     }
 
 
-    public Boolean isValidEmployeeDetailFile(ArrayList<String> file) {
-        return isValidFile(file, FileHeader.detailHeader);
-    }
 
-    public Boolean isValidAttendanceFile(ArrayList<String> file) {
-        return isValidFile(file, FileHeader.attendanceHeader);
-    }
 
 
 

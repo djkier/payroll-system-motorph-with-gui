@@ -2,9 +2,7 @@ package org.motorph.controller;
 
 import org.motorph.model.FileHandler;
 import org.motorph.view.MainApplication;
-import org.motorph.view.screen.EmployeeDetailsScreen;
-import org.motorph.view.screen.PayrollScreen;
-import org.motorph.view.tab.Tab;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,12 +26,14 @@ public class MainAppViewController {
         this.file.preLoadEmpDetails();
         this.file.preLoadEmpDetails();
         //view
-        this.dashboard = new DashboardController(user);
+        this.dashboard = new DashboardController();
+        this.dashboard.setUser(user);
         this.employee = new EmployeeController();
         this.payslip = new PayrollController();
 
-
-        this.psApp = new MainApplication("MotorPH Payroll System", payslip.getPanel());
+        //App name and the loaded screen when open
+        this.psApp = new MainApplication("MotorPH Payroll System");
+        this.psApp.changePanel(employee.getPanel());
         tabEvents();
     }
 
