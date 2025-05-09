@@ -137,8 +137,6 @@ public class EmployeeDetailsScreen extends ScreenView {
         note.setFont(FontUtility.plainItalic(12));
         note.setBounds(28, 62, 400, 50);
 
-
-//        JScrollPane table = employeeScrollpane;
         employeeScrollpane.setBounds(28, 100, 724, 370);
 
         panel.add(searchIcon);
@@ -149,11 +147,6 @@ public class EmployeeDetailsScreen extends ScreenView {
         panel.add(note);
         panel.add(employeeScrollpane);
 
-        for (Component comp : panel.getComponents()) {
-            System.out.println(comp.getName());
-        }
-
-//        searchFieldListener(searchBar, panel, table);
 
         return panel;
     }
@@ -212,8 +205,13 @@ public class EmployeeDetailsScreen extends ScreenView {
     private void radioListener(JRadioButton button) {
         button.addActionListener(e -> {
             if (button.isSelected()) {
-                //To be use by the searchfield
-                isIdSelectedInRadio = button.getText().equalsIgnoreCase("ID");
+                //check the pick option from radio, that will be use as basis of searchfield
+                boolean isIdSelected = button.getText().equalsIgnoreCase("ID");
+                if (isIdSelectedInRadio != isIdSelected) {
+                    isIdSelectedInRadio = isIdSelected;
+                    this.searchBar.setText("");
+                }
+
             }
         });
     }
@@ -230,7 +228,6 @@ public class EmployeeDetailsScreen extends ScreenView {
             employeeTablePanel.add(newScrollPane);
         } else {
             employeeTablePanel.remove(employeeScrollpane);
-            System.out.println("removed");
             employeeTablePanel.add(newScrollPane);
         }
 
