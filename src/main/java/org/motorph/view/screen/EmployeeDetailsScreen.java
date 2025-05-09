@@ -12,6 +12,7 @@ import org.motorph.view.tab.Tab;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class EmployeeDetailsScreen extends ScreenView {
     private boolean isIdSelectedInRadio;
     private JTextField searchBar;
     private JPanel employeeTablePanel;
-    private JScrollPane employeeScrollpane;
+    private JTable table;
 
 
 
@@ -29,10 +30,9 @@ public class EmployeeDetailsScreen extends ScreenView {
         super(employeeRepository);
         this.employeeRepository = employeeRepository;
         this.isIdSelectedInRadio = true;
-
         this.employeeTablePanel = new JPanel();
         this.searchBar = new JTextField(30);
-        this.employeeScrollpane = TableScreen.employeeTable(employeeRepository.employeeTableData());
+        this.table = new JTable(TableScreen.employeeRowData(employeeRepository.employeeTableData()));
 
         setPanel(setUp());
 
@@ -49,7 +49,11 @@ public class EmployeeDetailsScreen extends ScreenView {
     }
 
     public boolean isIdSelectedInRadio() {
-        return isIdSelectedInRadio;
+        return this.isIdSelectedInRadio;
+    }
+
+    public JTable getTable() {
+        return this.table;
     }
 
 
@@ -141,7 +145,11 @@ public class EmployeeDetailsScreen extends ScreenView {
         note.setFont(FontUtility.plainItalic(12));
         note.setBounds(28, 62, 400, 50);
 
-        employeeScrollpane.setBounds(28, 100, 724, 370);
+        JTable intialTable = TableScreen.generalTable(this.table);
+        JScrollPane initialScrollPane = TableScreen.scrollPane(intialTable);
+        initialScrollPane.setName("initialScrollPane");
+
+        initialScrollPane.setBounds(28, 100, 724, 370);
 
         panel.add(searchIcon);
         panel.add(searchField);
@@ -149,7 +157,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         panel.add(radioBtn);
         panel.add(addEmployee);
         panel.add(note);
-        panel.add(employeeScrollpane);
+        panel.add(initialScrollPane);
 
 
         return panel;
@@ -205,7 +213,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         return panel;
     }
 
-    //Logic
+    //Radio interaction
     private void radioListener(JRadioButton button) {
         button.addActionListener(e -> {
             if (button.isSelected()) {
@@ -222,16 +230,18 @@ public class EmployeeDetailsScreen extends ScreenView {
 
 
     public void updateTableValues(Object[][] data) {
+        this.table.setModel(TableScreen.employeeRowData(data));
+        JTable addUIInTable = TableScreen.generalTable(this.table);
+        JScrollPane newScrollPane = TableScreen.scrollPane(addUIInTable);
 
-        JScrollPane newScrollPane = TableScreen.employeeTable(data);
         newScrollPane.setBounds(28, 100, 724, 370);
         newScrollPane.setName("newScrollPane");
 
-        if (isComponentIsExisting("newScrollPane", employeeTablePanel)) {
-            removeByName("newScrollPane", employeeTablePanel);
+        if (isComponentIsExisting("newScrollPane")) {
+            removeByName("newScrollPane");
             employeeTablePanel.add(newScrollPane);
         } else {
-            employeeTablePanel.remove(employeeScrollpane);
+            removeByName("initialScrollPane");
             employeeTablePanel.add(newScrollPane);
         }
 
@@ -239,9 +249,9 @@ public class EmployeeDetailsScreen extends ScreenView {
         this.employeeTablePanel.repaint();
     }
 
-    private boolean isComponentIsExisting(String name, JPanel panel) {
-        for (Component comp : panel.getComponents()) {
-            if (name.equalsIgnoreCase(comp.getName())){
+    private boolean isComponentIsExisting(String compName) {
+        for (Component comp : employeeTablePanel.getComponents()) {
+            if (compName.equalsIgnoreCase(comp.getName())){
                 return true;
             }
         }
@@ -249,10 +259,10 @@ public class EmployeeDetailsScreen extends ScreenView {
         return false;
     }
 
-    private void removeByName(String name, JPanel panel) {
-        for (Component comp : panel.getComponents()) {
+    private void removeByName(String name) {
+        for (Component comp : employeeTablePanel.getComponents()) {
             if (name.equalsIgnoreCase(comp.getName())) {
-                panel.remove(comp);
+                employeeTablePanel.remove(comp);
             }
         }
     }

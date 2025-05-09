@@ -26,7 +26,8 @@ public class TableScreen {
             }
         };
 
-        JTable table = generalTable(model);
+//        JTable table = generalTable(model);
+        JTable table = new JTable();
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
@@ -38,12 +39,8 @@ public class TableScreen {
 
     }
 
-    public static JScrollPane employeeTable(Object[][] data) {
+    public static DefaultTableModel employeeRowData(Object[][] data) {
         String[] columnTitles = {"ID", "Name", "Birthday", "Position", "Status"};
-
-        if (data == null) {
-            data = new Object[][]{{"", "No Record Found", "", "", ""}};
-        }
 
         DefaultTableModel model = new DefaultTableModel(data, columnTitles) {
             @Override
@@ -54,13 +51,33 @@ public class TableScreen {
 
         };
 
+        return model;
+    }
+
+    public static JScrollPane employeeTable(Object[][] data) {
+        String[] columnTitles = {"ID", "Name", "Birthday", "Position", "Status"};
+
+
+        DefaultTableModel model = new DefaultTableModel(data, columnTitles) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+
+                return false;
+            }
+
+        };
+
+        //table columns editor
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        JTable table = generalTable(model);
-        table.getColumnModel().getColumn(0).setPreferredWidth(20);
-//        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(3).setPreferredWidth(20);
+//        JTable table = generalTable(model);
+        JTable table = new JTable();
+
+
+//        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+////        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+//        table.getColumnModel().getColumn(3).setPreferredWidth(20);
 
         for (int i = 0; i < table.getColumnCount(); i ++){
             if (i != 1) {
@@ -94,10 +111,11 @@ public class TableScreen {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        JTable table = generalTable(model);
-        table.getColumnModel().getColumn(0).setPreferredWidth(20);
-//        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-        table.getColumnModel().getColumn(1).setPreferredWidth(20);
+//        JTable table = generalTable(model);
+        JTable table = new JTable();
+//        table.getColumnModel().getColumn(0).setPreferredWidth(20);
+////        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+//        table.getColumnModel().getColumn(1).setPreferredWidth(20);
 
         for (int i = 0; i < table.getColumnCount(); i ++){
             if (i != 0 && i != 2) {
@@ -109,35 +127,47 @@ public class TableScreen {
     }
 
 
-    private static JTable generalTable(DefaultTableModel model) {
+    public static JTable generalTable(JTable recreateTable) {
         UIManager.put("ScrollBar.width", 16); // Set scrollbar width
         UIManager.put("ScrollBar.background", ColorUtility.grayLight); // Set scrollbar background color
         UIManager.put("ScrollBar.thumb", ColorUtility.grayLight); // Set thumb color
         UIManager.put("ScrollBar.thumbHighlight", ColorUtility.grayLight); // Set thumb highlight color
         UIManager.put("ScrollBar.thumbShadow", ColorUtility.grayLight);
 
-        JTable table = new JTable(model);
-        JTableHeader header = table.getTableHeader();
-
+        JTableHeader header = recreateTable.getTableHeader();
         header.setReorderingAllowed(false);
         header.setFont(FontUtility.important(12));
         header.setPreferredSize(new Dimension(header.getWidth(), 30));
         header.setForeground(ColorUtility.grayDark);
         header.setBackground(ColorUtility.grayLight);
 
-        table.setRowHeight(32);
-        table.setBorder(BorderFactory.createLineBorder(ColorUtility.grayLight, 2));
-        table.setBackground(ColorUtility.white);
+        recreateTable.setRowHeight(32);
+        recreateTable.setBorder(BorderFactory.createLineBorder(ColorUtility.grayLight, 2));
+        recreateTable.setBackground(ColorUtility.white);
 
-        table.setFont(FontUtility.plain(12));
-        table.setGridColor(ColorUtility.grayBorder);
-        table.setSelectionBackground(ColorUtility.grayLight);
+        recreateTable.setFont(FontUtility.plain(12));
+        recreateTable.setGridColor(ColorUtility.grayBorder);
+        recreateTable.setSelectionBackground(ColorUtility.grayLight);
 
 
-        return table;
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        for (int i = 0; i < recreateTable.getColumnCount(); i ++){
+            if (i != 1 && i != 3) {
+                recreateTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+                recreateTable.getColumnModel().getColumn(i).setPreferredWidth(20);
+            }
+
+        }
+
+
+
+
+        return recreateTable;
     }
 
-    private static JScrollPane scrollPane(JTable table) {
+    public static JScrollPane scrollPane(JTable table) {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(BorderFactory.createLineBorder(ColorUtility.grayBorder, 2));
