@@ -86,4 +86,31 @@ public class EmployeeRepository {
                 .map(String::valueOf)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public int totalEmployee() {
+        return repository.size();
+    }
+
+    public int totalRegular() {
+        int count = 0;
+        for (String key : repository.keySet()) {
+            if(repository.get(key).getStatus().equalsIgnoreCase("Regular")) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public int totalProbationary() {
+        int count = 0;
+        for (String key : repository.keySet()) {
+            if(repository.get(key).getStatus().equalsIgnoreCase("Probationary")) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
 }

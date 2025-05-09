@@ -1,20 +1,14 @@
 package org.motorph.view.screen;
 
-import org.motorph.model.datarepositories.EmployeeDetails;
 import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.utility.ImageUtility;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
 import org.motorph.view.screen.components.TableScreen;
-import org.motorph.view.tab.Tab;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class EmployeeDetailsScreen extends ScreenView {
     private EmployeeRepository employeeRepository;
@@ -22,7 +16,7 @@ public class EmployeeDetailsScreen extends ScreenView {
     private JTextField searchBar;
     private JPanel employeeTablePanel;
     private JTable table;
-
+    private JPanel employeeHeader;
 
 
 
@@ -33,10 +27,10 @@ public class EmployeeDetailsScreen extends ScreenView {
         this.employeeTablePanel = new JPanel();
         this.searchBar = new JTextField(30);
         this.table = new JTable(TableScreen.employeeRowData(employeeRepository.employeeTableData()));
+        this.employeeHeader = new JPanel();
+
 
         setPanel(setUp());
-
-
     }
 
     @Override
@@ -63,8 +57,11 @@ public class EmployeeDetailsScreen extends ScreenView {
         panel.setBackground(ColorUtility.white);
         panel.setLayout(null);
 
-        JPanel total = employeeHeader();
-        total.setBounds(16,16,740,120);
+        JPanel employeeHeader = employeeHeader();
+        updateEmployeeHeader(employeeRepository);
+        employeeHeader.setBounds(16,16,740,120);
+
+
 
         JPanel grayStripe1 = EffectsUtility.horizontalMargin(24);
         grayStripe1.setBounds(0,152, 800, 24);
@@ -73,7 +70,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         employeeTable.setBounds(0, 176,752,600);
 
 
-        panel.add(total);
+        panel.add(employeeHeader);
         panel.add(grayStripe1);
         panel.add(employeeTable);
 
@@ -87,13 +84,10 @@ public class EmployeeDetailsScreen extends ScreenView {
     }
 
     private JPanel employeeHeader() {
-        JPanel panel = new JPanel();
+        JPanel panel = this.employeeHeader;
+        panel.setName("employeeHeader");
         panel.setBackground(ColorUtility.white);
         panel.setLayout(new GridLayout(1,3));
-
-        panel.add(compHeader("Employee", 34));
-        panel.add(compHeader("Regular", 26));
-        panel.add(compHeader("Probationary", 8));
 
         return panel;
     }
@@ -228,7 +222,17 @@ public class EmployeeDetailsScreen extends ScreenView {
         });
     }
 
+    //Updates the employee screen header
+    public void updateEmployeeHeader(EmployeeRepository employeeRepository) {
+        this.employeeHeader.removeAll();
+        this.employeeHeader.add(compHeader("Employee", employeeRepository.totalEmployee()));
+        this.employeeHeader.add(compHeader("Regular", employeeRepository.totalRegular()));
+        this.employeeHeader.add(compHeader("Probationary", employeeRepository.totalProbationary()));
+        this.employeeHeader.revalidate();
+        this.employeeHeader.repaint();
+    }
 
+    //Updates the employee table
     public void updateTableValues(Object[][] data) {
         this.table.setModel(TableScreen.employeeRowData(data));
         JTable addUIInTable = TableScreen.generalTable(this.table);
@@ -266,6 +270,8 @@ public class EmployeeDetailsScreen extends ScreenView {
             }
         }
     }
+
+
 
 
 
