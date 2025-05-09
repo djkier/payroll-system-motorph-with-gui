@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class PayrollScreen extends ScreenView {
 
     public PayrollScreen() {
-
+        setPanel(setUp());
     }
 
 //    @Override

@@ -20,12 +20,13 @@ public class ScreenView {
     public ScreenView(EmployeeRepository employeeRepository) {
         this.user = "";
         this.tableData = employeeRepository.employeeTableData();
-        this.panel = setUp();
+//        this.panel = setUp();
+        this.panel = new JPanel();
     }
 
     public ScreenView() {
         this.user = "";
-        this.panel = setUp();
+        this.panel = new JPanel();
 
     }
 
@@ -34,13 +35,18 @@ public class ScreenView {
         return tableData;
     }
 
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
 
+    public JPanel getPanel() {
+        return this.panel;
+    }
 
     public JPanel getView() {
-        //refresh screen
-        this.panel = setUp();
         return panel;
     }
+
     public String getUser() {
         return this.user;
     }

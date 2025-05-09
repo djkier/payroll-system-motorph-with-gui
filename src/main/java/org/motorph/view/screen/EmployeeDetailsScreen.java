@@ -18,15 +18,34 @@ import java.util.ArrayList;
 public class EmployeeDetailsScreen extends ScreenView {
     private EmployeeRepository employeeRepository;
     private boolean isIdSelectedInRadio;
-    private JScrollPane tableView;
+    private JTextField searchBar;
+    private JPanel employeeTablePanel;
+    private JScrollPane employeeScrollpane;
+
+
 
 
     public EmployeeDetailsScreen(EmployeeRepository employeeRepository) {
         super(employeeRepository);
         this.employeeRepository = employeeRepository;
         this.isIdSelectedInRadio = true;
-        this.tableView = new JScrollPane();
 
+        this.employeeTablePanel = new JPanel();
+        this.searchBar = new JTextField(30);
+        this.employeeScrollpane = TableScreen.employeeTable(employeeRepository.employeeTableData());
+
+        setPanel(setUp());
+
+
+    }
+
+    @Override
+    public JPanel getView() {
+        return getPanel();
+    }
+
+    public JTextField getSearchBar() {
+        return this.searchBar;
     }
 
 
@@ -94,7 +113,7 @@ public class EmployeeDetailsScreen extends ScreenView {
     }
 
     private JPanel employeeTable() {
-        JPanel panel = new JPanel();
+        JPanel panel = employeeTablePanel;
         panel.setBackground(ColorUtility.white);
         panel.setLayout(null);
 
@@ -111,8 +130,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         JPanel addEmployee = addEmployee();
         addEmployee.setBounds(580, 12, 160,28);
 
-        JTextField textField = new JTextField(30);
-        JPanel searchField = EffectsUtility.searchField(textField);
+        JPanel searchField = EffectsUtility.searchField(searchBar);
         searchField.setBounds(24, 40, 350,50);
 
         JLabel note = new JLabel("Click a row to view or edit.");
@@ -120,8 +138,8 @@ public class EmployeeDetailsScreen extends ScreenView {
         note.setBounds(28, 62, 400, 50);
 
 
-        JScrollPane table = TableScreen.employeeTable(getTableData());
-        table.setBounds(28, 100, 724, 370);
+//        JScrollPane table = employeeScrollpane;
+        employeeScrollpane.setBounds(28, 100, 724, 370);
 
         panel.add(searchIcon);
         panel.add(searchField);
@@ -129,9 +147,13 @@ public class EmployeeDetailsScreen extends ScreenView {
         panel.add(radioBtn);
         panel.add(addEmployee);
         panel.add(note);
-        panel.add(table);
+        panel.add(employeeScrollpane);
 
-        searchFieldListener(textField, panel, table);
+        for (Component comp : panel.getComponents()) {
+            System.out.println(comp.getName());
+        }
+
+//        searchFieldListener(searchBar, panel, table);
 
         return panel;
     }
@@ -196,82 +218,42 @@ public class EmployeeDetailsScreen extends ScreenView {
         });
     }
 
-    private void searchFieldListener(JTextField textField, JPanel panel, JScrollPane scrollPane) {
 
+    public void updateTableValues(Object[][] data) {
 
-        textField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                showEmployee();
+        JScrollPane newScrollPane = TableScreen.employeeTable(data);
+        newScrollPane.setBounds(28, 100, 724, 370);
+        newScrollPane.setName("newScrollPane");
+
+        if (isComponentIsExisting("newScrollPane", employeeTablePanel)) {
+            removeByName("newScrollPane", employeeTablePanel);
+            employeeTablePanel.add(newScrollPane);
+        } else {
+            employeeTablePanel.remove(employeeScrollpane);
+            System.out.println("removed");
+            employeeTablePanel.add(newScrollPane);
+        }
+
+        this.employeeTablePanel.revalidate();
+        this.employeeTablePanel.repaint();
+    }
+
+    private boolean isComponentIsExisting(String name, JPanel panel) {
+        for (Component comp : panel.getComponents()) {
+            if (name.equalsIgnoreCase(comp.getName())){
+                return true;
             }
+        }
 
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                showEmployee();
+        return false;
+    }
+
+    private void removeByName(String name, JPanel panel) {
+        for (Component comp : panel.getComponents()) {
+            if (name.equalsIgnoreCase(comp.getName())) {
+                panel.remove(comp);
             }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                showEmployee();
-            }
-
-            private void showEmployee() {
-                ArrayList<String> availableData = employeeRepository.getEmployeeWithIdStartsWith(textField.getText().trim());
-                Object[][] data;
-//                System.out.println(availableData.size());
-
-                if (!availableData.isEmpty()) {
-                    data = employeeRepository.getEmployeeTableUsingId(availableData);
-                } else {
-                    data = new Object[][]{{"", "No Record Found", "", ""}};
-                }
-
-                for (Object[] row : data ) {
-                    if (row[0].equals("")){
-                        System.out.println("No Record Found");
-                    } else {
-                        System.out.println(row[0]);
-                    }
-
-                }
-                JScrollPane newScrollPane = TableScreen.employeeTable(data);
-                newScrollPane.setBounds(28, 100, 724, 370);
-                newScrollPane.setName("newScrollPane");
-
-                if (isComponentIsExisting("newScrollPane")) {
-                    removeByName("newScrollPane");
-                    panel.add(newScrollPane);
-                } else {
-                    panel.remove(scrollPane);
-                    panel.add(newScrollPane);
-                }
-
-
-                panel.revalidate();
-                panel.repaint();
-
-
-
-            }
-
-            private boolean isComponentIsExisting(String name) {
-                for (Component comp : panel.getComponents()) {
-                    if (name.equalsIgnoreCase(comp.getName())){
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            private void removeByName(String name) {
-                for (Component comp : panel.getComponents()) {
-                    if (name.equalsIgnoreCase(comp.getName())) {
-                        panel.remove(comp);
-                    }
-                }
-            }
-        });
+        }
     }
 
 

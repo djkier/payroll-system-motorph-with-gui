@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter;
 public class DashBoardScreen extends ScreenView {
 
     public DashBoardScreen() {
-
+        setPanel(setUp());
 
     }
 
