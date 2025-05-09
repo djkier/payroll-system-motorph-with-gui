@@ -8,6 +8,8 @@ import org.motorph.view.screen.EmployeeDetailsScreen;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,7 +30,7 @@ public class EmployeeController {
 
 
         tableUpdater(employeeView.getSearchBar());
-
+        rowClickAction(employeeView.getTable());
     }
 
     private void tableUpdater(JTextField searchBar) {
@@ -124,9 +126,23 @@ public class EmployeeController {
         return dataList.toArray(new Object[dataList.size()][]);
     }
 
+    private void rowClickAction(JTable table) {
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2 && table.getSelectedColumn() != -1) {
+                    int row = table.getSelectedRow();
+                    Object value = table.getValueAt(row, 0);
+                    System.out.println(value);
+                }
+            }
+        });
+    }
+
 
 
     public JPanel getPanel() {
         return this.employeeView.getView();
     }
+
 }
