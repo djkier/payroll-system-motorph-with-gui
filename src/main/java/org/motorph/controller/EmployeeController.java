@@ -10,6 +10,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,11 +29,25 @@ public class EmployeeController {
         this.employeeHashMap = repository.getEmployeeRepository().getRepository();
         this.employeeView = new EmployeeDetailsScreen(repository.getEmployeeRepository());
 
-
+        addNewEmployee(employeeView.getAddNewButton());
         tableUpdater(employeeView.getSearchBar());
         rowClickAction(employeeView.getTable());
     }
 
+    public JPanel getPanel() {
+        return this.employeeView.getView();
+    }
+
+    private void addNewEmployee(JPanel addNewButton) {
+        addNewButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Add new employees!");
+            }
+        });
+    }
+
+    //Updates the values of the cells in the employee screen
     private void tableUpdater(JTextField searchBar) {
         searchBar.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -66,7 +81,6 @@ public class EmployeeController {
 
         });
     }
-
 
     // Returns all IDs that start with the given text
     private ArrayList<String> getEmployeeWithIdStartsWith(String text) {
@@ -126,6 +140,7 @@ public class EmployeeController {
         return dataList.toArray(new Object[dataList.size()][]);
     }
 
+    //Cell listener
     private void rowClickAction(JTable table) {
         table.addMouseListener(new MouseAdapter() {
             @Override
@@ -141,8 +156,6 @@ public class EmployeeController {
 
 
 
-    public JPanel getPanel() {
-        return this.employeeView.getView();
-    }
+
 
 }

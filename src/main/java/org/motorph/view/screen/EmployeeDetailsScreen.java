@@ -17,6 +17,7 @@ public class EmployeeDetailsScreen extends ScreenView {
     private JPanel employeeTablePanel;
     private JTable table;
     private JPanel employeeHeader;
+    private JPanel addNewButton;
 
 
 
@@ -28,16 +29,13 @@ public class EmployeeDetailsScreen extends ScreenView {
         this.searchBar = new JTextField(30);
         this.table = new JTable(TableScreen.employeeRowData(employeeRepository.employeeTableData()));
         this.employeeHeader = new JPanel();
+        this.addNewButton = new JPanel();
 
 
         setPanel(setUp());
     }
 
-    @Override
-    public JPanel getView() {
-        return getPanel();
-    }
-
+    //Getters
     public JTextField getSearchBar() {
         return this.searchBar;
     }
@@ -46,10 +44,19 @@ public class EmployeeDetailsScreen extends ScreenView {
         return this.isIdSelectedInRadio;
     }
 
+    public JPanel getAddNewButton() {
+        return addNewButton;
+    }
+
     public JTable getTable() {
         return this.table;
     }
 
+    //User interface methods for the employee screen
+    @Override
+    public JPanel getView() {
+        return getPanel();
+    }
 
     @Override
     public JPanel body() {
@@ -60,8 +67,6 @@ public class EmployeeDetailsScreen extends ScreenView {
         JPanel employeeHeader = employeeHeader();
         updateEmployeeHeader(employeeRepository);
         employeeHeader.setBounds(16,16,740,120);
-
-
 
         JPanel grayStripe1 = EffectsUtility.horizontalMargin(24);
         grayStripe1.setBounds(0,152, 800, 24);
@@ -135,7 +140,7 @@ public class EmployeeDetailsScreen extends ScreenView {
         JPanel searchField = EffectsUtility.searchField(searchBar);
         searchField.setBounds(24, 40, 350,50);
 
-        JLabel note = new JLabel("Click a row to view or edit.");
+        JLabel note = new JLabel("Double click a row to view or edit.");
         note.setFont(FontUtility.plainItalic(12));
         note.setBounds(28, 62, 400, 50);
 
@@ -192,7 +197,7 @@ public class EmployeeDetailsScreen extends ScreenView {
     }
 
     private JPanel addEmployee() {
-        JPanel panel = new JPanel();
+        JPanel panel = this.addNewButton;
 
         panel.setBackground(ColorUtility.redDark);
 
