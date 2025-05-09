@@ -17,6 +17,10 @@ public class EmployeeRepository {
         this.lastNameReference = new HashMap<>();
     }
 
+    public HashMap<String, EmployeeDetails> getRepository() {
+        return repository;
+    }
+
     //method for processing employee
     //with an assumption that the file being pass is a valid employee details
     public void processEmployeeDetails(ArrayList<String> file) {

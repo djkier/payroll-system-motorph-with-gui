@@ -1,27 +1,33 @@
 package org.motorph.controller;
 
 import org.motorph.model.datarepositories.DataProcessRepo;
+import org.motorph.model.datarepositories.EmployeeDetails;
 import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.view.screen.EmployeeDetailsScreen;
-import org.motorph.view.screen.components.TableScreen;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EmployeeController {
-    private EmployeeDetailsScreen emp;
+    private EmployeeDetailsScreen employeeView;
     private DataProcessRepo repository;
     private EmployeeRepository employeeRepository;
+    private HashMap<String, EmployeeDetails> employeeHashMap;
 
     public EmployeeController(DataProcessRepo repository) {
         this.repository = repository;
         this.employeeRepository = repository.getEmployeeRepository();
-        this.emp = new EmployeeDetailsScreen(repository.getEmployeeRepository());
+        this.employeeHashMap = repository.getEmployeeRepository().getRepository();
+        this.employeeView = new EmployeeDetailsScreen(repository.getEmployeeRepository());
 
 
-        tableUpdater(emp.getSearchBar());
+        tableUpdater(employeeView.getSearchBar());
 
     }
 
@@ -43,26 +49,84 @@ public class EmployeeController {
             }
 
             private void showEmployee() {
-                //refactor this from the model
-                ArrayList<String> availableData = employeeRepository.getEmployeeWithIdStartsWith(searchBar.getText().trim());
-                Object[][] data;
 
-                if (!availableData.isEmpty()) {
-                    data = employeeRepository.getEmployeeTableUsingId(availableData);
-                } else {
-                    data = new Object[][]{{"", "No Record Found", "", ""}};
-                }
+                ArrayList<String> availableData = employeeView.isIdSelectedInRadio() ?
+                        getEmployeeWithIdStartsWith(searchBar.getText()) :  //ID is selected
+                        getEmployeeWithLastnameStartsWith(searchBar.getText());  //Lastname is selected
 
-                emp.updateTableValues(data);
+                Object[][] data = !availableData.isEmpty() ?
+                        getEmployeeDataForTableUsingId(availableData) : //process if there is an available data
+                        new Object[][]{{"-", "No Record Found", "-", "-", "-"}};
+
+
+                employeeView.updateTableValues(data);
             }
 
         });
     }
 
 
+    // Returns all IDs that start with the given text
+    private ArrayList<String> getEmployeeWithIdStartsWith(String text) {
+        String trimmedText = text.trim();
+        ArrayList<String> availableData = new ArrayList<>();
+        for (String key : employeeHashMap.keySet()) {
+            if(key.startsWith(trimmedText)) {
+                availableData.add(key);
+            }
+        }
+
+
+        return availableData;
+    }
+
+    //Return a list of ID that has a last name that starts with the given text
+    private ArrayList<String> getEmployeeWithLastnameStartsWith(String text) {
+        ArrayList<String> availableData= new ArrayList<>();
+        String reformedString = text.trim().toLowerCase();
+
+
+        for (String key : employeeHashMap.keySet()) {
+            String reformedLastName = employeeHashMap.get(key).getLastName().trim().toLowerCase();
+            if (reformedLastName.startsWith(reformedString)) {
+                availableData.add(key);
+            }
+        }
+
+        return availableData;
+    }
+
+    //Return the data for the table
+    private Object[][] getEmployeeDataForTableUsingId(ArrayList<String> listOfId) {
+
+        ArrayList<String> sortedId = listOfId.stream()
+                .map(Integer::valueOf)
+                .sorted()
+                .map(String::valueOf)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        return tableData(sortedId);
+    }
+
+    //Data processor for the table
+    private Object[][] tableData(ArrayList<String> sortedList) {
+        List<Object[]> dataList = new ArrayList<>();
+        for (String id : sortedList) {
+            dataList.add(new Object[] {
+                    employeeHashMap.get(id).getId(),
+                    employeeHashMap.get(id).getFullName(),
+                    employeeHashMap.get(id).getBirthDate(),
+                    employeeHashMap.get(id).getPosition(),
+                    employeeHashMap.get(id).getStatus()
+            });
+        }
+
+        return dataList.toArray(new Object[dataList.size()][]);
+    }
+
 
 
     public JPanel getPanel() {
-        return this.emp.getView();
+        return this.employeeView.getView();
     }
 }

@@ -48,6 +48,10 @@ public class EmployeeDetailsScreen extends ScreenView {
         return this.searchBar;
     }
 
+    public boolean isIdSelectedInRadio() {
+        return isIdSelectedInRadio;
+    }
+
 
     @Override
     public JPanel body() {
