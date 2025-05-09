@@ -31,11 +31,6 @@ public class DataProcessRepo {
         attendanceRepository.processAttendance(file);
     }
 
-//   testing
-    public void findInstanceLastName(String lastname) {
-        ArrayList<EmployeeDetails> emp = employeeRepository.getEmployeeWithLastNameStartsWith(lastname);
-        emp.stream().forEach(System.out::println);
-    }
 
 
 }

@@ -40,10 +40,7 @@ public class TableScreen {
 
     public static JScrollPane employeeTable(Object[][] data) {
         String[] columnTitles = {"ID", "Name", "Birthday", "Position", "Status"};
-//        Object[][] data = {{"10001", "Dela Cruz, J", "1975-01-01", "Clerk", "Regular"},
-//                {"10002", "Hello Woasdf", "1975-01-01", "Clerk", "Regular"},
-//                {"10003", "hello po, new charadsfasdf", "1975-01-01", "Clerk", "Regular"}};
-//        Object[][] data = dataModel;
+
         if (data == null) {
             data = new Object[][]{{"", "No Record Found", "", "", ""}};
         }
@@ -136,14 +133,6 @@ public class TableScreen {
         table.setGridColor(ColorUtility.grayBorder);
         table.setSelectionBackground(ColorUtility.grayLight);
 
-
-//        JScrollPane scrollPane = new JScrollPane(table);
-//        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-//        scrollPane.setBorder(BorderFactory.createLineBorder(ColorUtility.grayBorder, 2));
-//        scrollPane.getViewport().setBackground(ColorUtility.white);
-//        scrollPane.setBackground(ColorUtility.white);
-//
-//        scrollPane.getVerticalScrollBar().setUI(scrollBarUI());
 
         return table;
     }

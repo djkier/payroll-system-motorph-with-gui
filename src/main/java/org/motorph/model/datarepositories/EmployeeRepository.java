@@ -49,50 +49,7 @@ public class EmployeeRepository {
 
     }
 
-    public EmployeeDetails getEmployeeById(String id) {
-        return repository.get(id);
-    }
 
-    public String getIdByLastName(String ln) {
-        return lastNameReference.get(ln);
-    }
-
-    public EmployeeDetails getEmployeeByLastName(String ln) {
-        return repository.get(getIdByLastName(ln));
-    }
-
-    //when used, be sure that the args is trimmed
-    public ArrayList<String> getEmployeeWithIdStartsWith(String id) {
-        ArrayList<String> details = new ArrayList<>();
-        for (String key : repository.keySet()) {
-            if (key.startsWith(id)) {
-                details.add(key);
-            }
-        }
-        return details;
-    }
-
-    public Object[][] getEmployeeTableUsingId(ArrayList<String> data) {
-        ArrayList<Integer> idStartsWith = new ArrayList<>();
-        for (String id : data) {
-            idStartsWith.add(Integer.valueOf(id));
-        }
-        ArrayList<String> stringedId = sortedIntToStrArray(idStartsWith);
-
-        return tableData(stringedId);
-
-    }
-
-    //when used, be sure that the args is trimmed
-    public ArrayList<EmployeeDetails> getEmployeeWithLastNameStartsWith(String part) {
-        ArrayList<EmployeeDetails> details = new ArrayList<>();
-        for (String key : lastNameReference.keySet()) {
-            if (key.toLowerCase().startsWith(part.toLowerCase())) {
-                details.add(getEmployeeByLastName(key));
-            }
-        }
-        return details;
-    }
 
     public Object[][] employeeTableData() {
         ArrayList<Integer> sortId = new ArrayList<>();
