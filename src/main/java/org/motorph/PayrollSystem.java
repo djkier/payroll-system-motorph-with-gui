@@ -3,6 +3,7 @@ package org.motorph;
 import org.motorph.controller.MainAppViewController;
 import org.motorph.controller.PasswordController;
 import org.motorph.model.FileHandler;
+import org.motorph.view.screen.components.AddNewEmployee;
 
 import javax.swing.SwingUtilities;
 
@@ -19,10 +20,19 @@ public class PayrollSystem {
 //        });
 
         //Start with the main app
+//        SwingUtilities.invokeLater(() -> {
+//            MainAppViewController mainApp = new MainAppViewController("Admin");
+//            mainApp.start();
+//        });
+
+
+        //Start with add new employee dialog box
         SwingUtilities.invokeLater(() -> {
             MainAppViewController mainApp = new MainAppViewController("Admin");
-            mainApp.start();
+            AddNewEmployee addNewEmployee = new AddNewEmployee(mainApp.mainFrame());
+            addNewEmployee.makeDialogVisible();
         });
+
 
         //features to be implemented
         //when a row is click in employee tab the employee info will appear

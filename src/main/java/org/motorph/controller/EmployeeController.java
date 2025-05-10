@@ -4,15 +4,14 @@ import org.motorph.model.datarepositories.DataProcessRepo;
 import org.motorph.model.datarepositories.EmployeeDetails;
 import org.motorph.model.datarepositories.EmployeeRepository;
 import org.motorph.view.screen.EmployeeDetailsScreen;
+import org.motorph.view.screen.components.AddNewEmployee;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,13 +47,17 @@ public class EmployeeController {
         addNewButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Add new employees!");
-                JDialog dialog = new JDialog(mainFrame, "My Dialog", true);
-                dialog.setSize(300, 200);
-                dialog.setLocationRelativeTo(mainFrame); // center on parent
-                dialog.setResizable(true); // optional
-                dialog.add(new JLabel("Hello from JDialog"), SwingConstants.CENTER);
-                dialog.setVisible(true);
+                AddNewEmployee addNewEmployee = new AddNewEmployee(mainFrame);
+                addNewEmployee.makeDialogVisible();
+
+                //Make an instance of the AddNewEmployee dialog box
+                //From that class get the information that has been added
+                //If added succesfully make a process to add it the repository
+                //if it get cancelled do nothing
+                //update the information of the employee header
+                //update the table of the employee table
+
+;
             }
         });
     }

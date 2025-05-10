@@ -48,6 +48,11 @@ public class MainAppViewController {
         tabEvents();
     }
 
+    //DELETE THIS after testing dialog box
+    public JFrame mainFrame() {
+        return  this.psApp.getApp();
+    }
+
     public void start() {
         psApp.start();
     }

@@ -113,6 +113,10 @@ public class EffectsUtility {
         return marginedBoxText(panel, width, height, ColorUtility.white);
     }
 
+    public static JPanel marginedBoxText(JPanel panel, Color color) {
+        return marginedBoxText(panel,12,8, color);
+    }
+
     public static JPanel marginedBoxText(JPanel panel) {
         return marginedBoxText(panel, 12, 8);
     }
