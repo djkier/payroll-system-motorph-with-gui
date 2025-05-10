@@ -22,12 +22,14 @@ public class EmployeeController {
     private DataProcessRepo repository;
     private EmployeeRepository employeeRepository;
     private HashMap<String, EmployeeDetails> employeeHashMap;
+    private JFrame mainFrame;
 
     public EmployeeController(DataProcessRepo repository) {
         this.repository = repository;
         this.employeeRepository = repository.getEmployeeRepository();
         this.employeeHashMap = repository.getEmployeeRepository().getRepository();
         this.employeeView = new EmployeeDetailsScreen(repository.getEmployeeRepository());
+        this.mainFrame = new JFrame();
 
         addNewEmployee(employeeView.getAddNewButton());
         tableUpdater(employeeView.getSearchBar());
@@ -38,11 +40,21 @@ public class EmployeeController {
         return this.employeeView.getView();
     }
 
+    public void setFrame(JFrame frame) {
+        this.mainFrame = frame;
+    }
+
     private void addNewEmployee(JPanel addNewButton) {
         addNewButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 System.out.println("Add new employees!");
+                JDialog dialog = new JDialog(mainFrame, "My Dialog", true);
+                dialog.setSize(300, 200);
+                dialog.setLocationRelativeTo(mainFrame); // center on parent
+                dialog.setResizable(true); // optional
+                dialog.add(new JLabel("Hello from JDialog"), SwingConstants.CENTER);
+                dialog.setVisible(true);
             }
         });
     }

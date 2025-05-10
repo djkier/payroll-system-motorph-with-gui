@@ -22,6 +22,10 @@ public class MainApplication {
 
     }
 
+    public JFrame getApp() {
+        return this.app;
+    }
+
     private JFrame setUpApp(String title) {
         JFrame w = new JFrame(title);
         w.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -40,6 +40,11 @@ public class MainAppViewController {
         //App name and the loaded screen when open
         this.psApp = new MainApplication("MotorPH Payroll System");
         this.psApp.changePanel(employee.getPanel());
+
+        //Use the mainframe as the reference of the dialog
+        this.employee.setFrame(this.psApp.getApp());
+
+
         tabEvents();
     }
 
