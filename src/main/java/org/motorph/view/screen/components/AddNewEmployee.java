@@ -7,8 +7,12 @@ import javax.swing.*;
 
 public class AddNewEmployee {
     private JDialog jDialog;
+    private JTextField firstName;
 
     public AddNewEmployee(JFrame mainFrame) {
+        this.firstName = new JTextField(16);
+
+        //Load every instance before loading the main dialog
         this.jDialog = setUpDialog(mainFrame);
 
     }
@@ -36,10 +40,51 @@ public class AddNewEmployee {
         JPanel panel = new JPanel();
         panel.setBackground(ColorUtility.white);
 
-        JLabel label = new JLabel("Hello World!");
-
-        panel.add(label);
+        panel.add(employeeInformation());
 
         return panel;
     }
+
+    private JPanel employeeInformation() {
+        JPanel panel = new JPanel();
+
+        JLabel label = new JLabel("General Information");
+
+
+        JPanel firstName = textAndField("First Name", this.firstName);
+//        JPanel firstName = textAndField("First Name", new JTextField(16));
+
+
+        panel.add(label);
+        panel.add(firstName);
+
+        return EffectsUtility.marginedBoxText(panel,12,12, ColorUtility.white);
+    }
+
+    private JPanel idNumbers() {
+        JPanel panel = new JPanel();
+
+        return panel;
+    }
+
+    private JPanel salaryAndAllowances() {
+        JPanel panel = new JPanel();
+
+        return panel;
+    }
+
+    private JPanel textAndField(String text, JTextField textField) {
+        JPanel firstName = new JPanel();
+        JLabel firstNameLabel = new JLabel(text);
+        JPanel firstNameTextField = EffectsUtility.searchField(textField);
+
+        firstName.add(firstNameLabel);
+        firstName.add(firstNameTextField);
+
+        return firstName;
+    }
+
+
+
+
 }
