@@ -141,7 +141,7 @@ public class EffectsUtility {
 
     public static JPanel searchField(JTextField searchField) {
         JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.transparent);
+        panel.setBackground(ColorUtility.white);
 
         searchField.setBackground(ColorUtility.white);
         searchField.setForeground(Color.DARK_GRAY);
@@ -155,6 +155,7 @@ public class EffectsUtility {
         JPanel searchBorder = EffectsUtility.marginedBoxText(border, 0, 0, ColorUtility.white);
         searchBorder.setBorder(BorderFactory.createLineBorder(ColorUtility.graySurface, 2));
         searchBorder.setBackground(ColorUtility.white);
+
 
         panel.add(searchBorder);
 
