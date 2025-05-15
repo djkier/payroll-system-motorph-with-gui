@@ -4,13 +4,21 @@ import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class AddNewEmployee {
     private JDialog jDialog;
     private JTextField firstName;
+    private JTextField lastName;
+    private JTextField birthDate;
+    private JTextField address;
 
     public AddNewEmployee(JFrame mainFrame) {
         this.firstName = new JTextField(16);
+        this.lastName = new JTextField(16);
+        this.birthDate = new JTextField(16);
+        this.address = new JTextField(16);
+
 
         //Load every instance before loading the main dialog
         this.jDialog = setUpDialog(mainFrame);
@@ -47,16 +55,23 @@ public class AddNewEmployee {
 
     private JPanel employeeInformation() {
         JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout());
 
         JLabel label = new JLabel("General Information");
 
 
         JPanel firstName = textAndField("First Name", this.firstName);
-//        JPanel firstName = textAndField("First Name", new JTextField(16));
+        JPanel lastName = textAndField("Last Name", this.lastName);
+        JPanel birthDate = textAndField("Birthday", this.birthDate);
+        JPanel address = textAndField("Address", this.address);
+
 
 
         panel.add(label);
         panel.add(firstName);
+        panel.add(lastName);
+        panel.add(birthDate);
+        panel.add(address);
 
         return EffectsUtility.marginedBoxText(panel,12,12, ColorUtility.white);
     }
