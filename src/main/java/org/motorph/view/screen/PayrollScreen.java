@@ -43,9 +43,10 @@ public class PayrollScreen extends ScreenView {
         JPanel table = tablePanel();
         table.setBounds(0,150,780,500);
 
-        b.add(selection);
+
         b.add(horizontalDivider);
         b.add(table);
+        b.add(selection);
 
         return b;
     }

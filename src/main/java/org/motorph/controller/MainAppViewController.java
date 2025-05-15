@@ -3,6 +3,7 @@ package org.motorph.controller;
 import org.motorph.model.FileHandler;
 import org.motorph.model.datarepositories.DataProcessRepo;
 import org.motorph.view.MainApplication;
+import org.motorph.view.screen.components.AddNewEmployee;
 
 
 import javax.swing.*;
@@ -55,6 +56,9 @@ public class MainAppViewController {
 
     public void start() {
         psApp.start();
+        //employee dialog test
+        AddNewEmployee test = new AddNewEmployee(this.psApp.getApp());
+        test.makeDialogVisible();
     }
 
     private void dashboardSetUp() {

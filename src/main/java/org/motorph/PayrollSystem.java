@@ -20,17 +20,9 @@ public class PayrollSystem {
 //        });
 
         //Start with the main app
-//        SwingUtilities.invokeLater(() -> {
-//            MainAppViewController mainApp = new MainAppViewController("Admin");
-//            mainApp.start();
-//        });
-
-
-        //Start with add new employee dialog box
         SwingUtilities.invokeLater(() -> {
             MainAppViewController mainApp = new MainAppViewController("Admin");
-            AddNewEmployee addNewEmployee = new AddNewEmployee(mainApp.mainFrame());
-            addNewEmployee.makeDialogVisible();
+            mainApp.start();
         });
 
 

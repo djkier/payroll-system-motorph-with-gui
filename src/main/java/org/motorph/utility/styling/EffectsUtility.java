@@ -141,7 +141,7 @@ public class EffectsUtility {
 
     public static JPanel searchField(JTextField searchField) {
         JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.white);
+        panel.setBackground(ColorUtility.transparent);
 
         searchField.setBackground(ColorUtility.white);
         searchField.setForeground(Color.DARK_GRAY);
