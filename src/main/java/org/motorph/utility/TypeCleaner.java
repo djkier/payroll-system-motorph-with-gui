@@ -11,6 +11,11 @@ public class TypeCleaner {
         return line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
     }
 
+    public static String removeQuotes(String text) {
+        text = text.replaceAll("^\"|\"$", "");
+        return text;
+    }
+
     public static Double convertStringToMoney(String money) {
         String removeComma = money.replace(",", "");
         String removeQuotation = removeComma.replace("\"", "");
@@ -37,5 +42,6 @@ public class TypeCleaner {
     public static double cleanDouble(double number) {
         return Math.round(number * 100.0) / 100.0;
     }
+
 
 }

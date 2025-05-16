@@ -57,8 +57,11 @@ public class MainAppViewController {
     public void start() {
         psApp.start();
         //employee dialog test
-        AddNewEmployee test = new AddNewEmployee(this.psApp.getApp());
+        AddNewEmployee test = new AddNewEmployee(this.psApp.getApp(),
+                this.file.getRepository().getEmployeeRepository().positionOptions(),
+                this.file.getRepository().getEmployeeRepository().supervisorOptions());
         test.makeDialogVisible();
+        System.out.println(this.file.getRepository().getEmployeeRepository().getRepository().get("10003"));
     }
 
     private void dashboardSetUp() {

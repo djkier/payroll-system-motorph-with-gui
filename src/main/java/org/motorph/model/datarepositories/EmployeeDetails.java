@@ -223,6 +223,27 @@ public class EmployeeDetails {
 
     @Override
     public String toString() {
-        return this.id + " - " + this.lastName + ", " + this.firstName + " - " + this.status;
+//        return this.id + " - " + this.lastName + ", " + this.firstName + " - " + this.status;
+        return this.id + "\n" +
+            this.lastName + "\n" +
+            this.firstName + "\n" +
+            this.birthDate + "\n" +
+            this.address + "\n" +
+            this.phone + "\n" +
+            this.sss + "\n" +
+            this.philhealth + "\n" +
+            this.tin + "\n" +
+            this.pagibig + "\n" +
+            this.status + "\n" +
+            this.position + "\n" +
+            this.immSup + "\n" +
+            this.basicSalary + "\n" +
+            this.riceSubs + "\n" +
+            this.phoneAll + "\n" +
+            this.clothingAll + "\n" +
+            this.semiMonthlySal + "\n" +
+            this.hourlyRate;
+
     }
+
 }

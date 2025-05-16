@@ -31,9 +31,11 @@ public class EmployeeRepository {
 
             //Refer to the EmployeeDetails class to get the args label
             EmployeeDetails employee = new EmployeeDetails(
-                    emp[0], emp[1], emp[2], emp[3], emp[4],
+                    emp[0], emp[1], emp[2], emp[3],
+                    TypeCleaner.removeQuotes(emp[4]),
                     emp[5], emp[6], emp[7], emp[8], emp[9],
-                    emp[10], emp[11], emp[12],
+                    emp[10], emp[11],
+                    TypeCleaner.removeQuotes(emp[12]),
                     TypeCleaner.convertStringToMoney(emp[13]),
                     TypeCleaner.convertStringToMoney(emp[14]),
                     TypeCleaner.convertStringToMoney(emp[15]),
@@ -112,5 +114,35 @@ public class EmployeeRepository {
 
         return count;
     }
+
+    public String[] positionOptions() {
+        ArrayList<String> positions = new ArrayList<>();
+        for (String key : repository.keySet()) {
+            String position = repository.get(key).getPosition();
+            if (!positions.contains(position)) {
+                positions.add(position);
+            }
+        }
+
+        Collections.sort(positions);
+
+        return positions.toArray(new String[0]);
+    }
+
+    public String[] supervisorOptions() {
+        ArrayList<String> supervisors = new ArrayList<>();
+        for (String key : repository.keySet()) {
+            String supervisor = repository.get(key).getImmSup();
+            if (!supervisors.contains(supervisor)) {
+                supervisors.add(supervisor);
+            }
+        }
+
+        Collections.sort(supervisors);
+
+        return supervisors.toArray(new String[0]);
+    }
+
+
 
 }

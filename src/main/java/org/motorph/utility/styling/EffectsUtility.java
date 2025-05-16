@@ -155,12 +155,24 @@ public class EffectsUtility {
         JPanel searchBorder = EffectsUtility.marginedBoxText(border, 0, 0, ColorUtility.white);
         searchBorder.setBorder(BorderFactory.createLineBorder(ColorUtility.graySurface, 2));
         searchBorder.setBackground(ColorUtility.white);
+        searchBorder.setName("searchBorder");
 
 
         panel.add(searchBorder);
 
         return panel;
     }
+
+    public static void changeSearchFieldColor(JPanel panel, Color color) {
+        for (Component comp : panel.getComponents()) {
+            if (comp.getName() != null && comp.getName().equals("searchBorder")) {
+                ((JPanel) comp).setBorder(BorderFactory.createLineBorder(ColorUtility.redDark, 2));
+            }
+
+        }
+    }
+
+
 
 
 

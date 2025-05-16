@@ -47,7 +47,7 @@ public class EmployeeController {
         addNewButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                AddNewEmployee addNewEmployee = new AddNewEmployee(mainFrame);
+                AddNewEmployee addNewEmployee = new AddNewEmployee(mainFrame, employeeRepository.positionOptions(), employeeRepository.supervisorOptions());
                 addNewEmployee.makeDialogVisible();
 
                 //Make an instance of the AddNewEmployee dialog box

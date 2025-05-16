@@ -1,9 +1,11 @@
 package org.motorph.view.screen.components;
 
 import org.motorph.utility.ImageUtility;
+import org.motorph.utility.TypeCleaner;
 import org.motorph.utility.styling.ColorUtility;
 import org.motorph.utility.styling.EffectsUtility;
 import org.motorph.utility.styling.FontUtility;
+import org.motorph.utility.styling.TextFieldUtility;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +22,12 @@ public class AddNewEmployee {
     private JTextField sss;
     private JTextField philhealth;
     private JTextField pagibig;
+    private JComboBox<String> status;
+    private JComboBox<String> position;
+    private JComboBox<String> immSupervisor;
 
 
-    public AddNewEmployee(JFrame mainFrame) {
+    public AddNewEmployee(JFrame mainFrame, String[] positionOptions, String[] supervisorOptions) {
         //General Information
         this.id = new JTextField(16);
         this.firstName = new JTextField(16);
@@ -37,6 +42,10 @@ public class AddNewEmployee {
         this.philhealth = new JTextField(16);
         this.pagibig = new JTextField(16);
 
+        //Employment Details
+        this.status = new JComboBox<>(new String[]{"Regular", "Probationary"});
+        this.position = new JComboBox<>(positionOptions);
+        this.immSupervisor = new JComboBox<>(supervisorOptions);
 
         //Load every instance before loading the main dialog
         this.jDialog = setUpDialog(mainFrame);
@@ -49,10 +58,10 @@ public class AddNewEmployee {
 
     private JDialog setUpDialog(JFrame frame) {
         JDialog dialog = new JDialog(frame, "Add New Employee", true);
-        dialog.setSize(800,600);
+        dialog.setSize(800,800);
 //        dialog.setLocationRelativeTo(frame);
         //DELETE THIS after creating the dialog box
-        dialog.setLocation(-1450,150);
+        dialog.setLocation(-1450,25);
         dialog.setResizable(false);
         dialog.setBackground(ColorUtility.grayLight);
 
@@ -71,18 +80,29 @@ public class AddNewEmployee {
         JPanel employeeInformation = employeeInformation();
         JPanel horizontalDivider1 = EffectsUtility.horizontalDivider(2, ColorUtility.grayBorder);
         JPanel idNumber = idNumber();
-
+        JPanel horizontalDivider2 = EffectsUtility.horizontalDivider(2, ColorUtility.grayBorder);
+        JPanel employmentDetails = employmentDetails();
+        JPanel horizontalDivider3 = EffectsUtility.horizontalDivider(2, ColorUtility.grayBorder);
+        JPanel salaryAndAllowances = salaryAndAllowances();
 
         employeePicture.setBounds(624,40,120,158);
-        idNumber.setBounds(0,224,778,220);
-        horizontalDivider1.setBounds(0,212,778,2);
         employeeInformation.setBounds(0,0,778,212);
+        horizontalDivider1.setBounds(0,212,778,2);
+        idNumber.setBounds(0,224,778,110);
+        horizontalDivider2.setBounds(0, 342,778,2);
+        employmentDetails.setBounds(0,342,778,110);
+        horizontalDivider3.setBounds(0,460,778,2);
+        salaryAndAllowances.setBounds(0,460,778,110);
 
 
         panel.add(employeePicture);
         panel.add(employeeInformation);
         panel.add(horizontalDivider1);
         panel.add(idNumber);
+        panel.add(horizontalDivider2);
+        panel.add(employmentDetails);
+        panel.add(horizontalDivider3);
+        panel.add(salaryAndAllowances);
 
 
         return panel;
@@ -137,21 +157,17 @@ public class AddNewEmployee {
 
     //General Information
     private JPanel employeeInformation() {
-        JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.white);
-        panel.setLayout(null);
+        JPanel panel = generalTemplate("General Information");
 
-        JLabel label = new JLabel("General Information");
-        label.setFont(FontUtility.important());
+        JPanel employeeId = TextFieldUtility.textAndField("Employee ID", this.id);
+        JPanel firstName = TextFieldUtility.textAndField("First Name", this.firstName);
+        JPanel lastName = TextFieldUtility.textAndField("Last Name", this.lastName);
+        JPanel birthDate = TextFieldUtility.textAndField("Birthday", this.birthDate);
+        JPanel phone = TextFieldUtility.textAndField("Phone", this.phone);
+        JPanel address = TextFieldUtility.textAndField("Address", this.address);
 
-        JPanel employeeId = textAndField("Employee ID", this.id);
-        JPanel firstName = textAndField("First Name", this.firstName);
-        JPanel lastName = textAndField("Last Name", this.lastName);
-        JPanel birthDate = textAndField("Birthday", this.birthDate);
-        JPanel phone = textAndField("Phone", this.phone);
-        JPanel address = textAndField("Address", this.address);
+        TextFieldUtility.textFieldPlaceHolder(this.birthDate, "MM/DD/YYYY");
 
-        label.setBounds(0,0,150,20);
         employeeId.setBounds(12,24,300,40);
         firstName.setBounds(12,66,300,40);
         lastName.setBounds(312,66,300,40);
@@ -159,8 +175,6 @@ public class AddNewEmployee {
         phone.setBounds(312,108,300,40);
         address.setBounds(12,150,600,40);
 
-
-        panel.add(label);
         panel.add(employeeId);
         panel.add(firstName);
         panel.add(lastName);
@@ -171,26 +185,20 @@ public class AddNewEmployee {
         return EffectsUtility.marginedBoxText(panel,12,12, ColorUtility.white);
     }
 
+    //Government ID Numbers
     private JPanel idNumber() {
-        JPanel panel = new JPanel();
-        panel.setBackground(ColorUtility.white);
-        panel.setLayout(null);
+        JPanel panel = generalTemplate("Government ID Numbers");
 
-        JLabel label = new JLabel("Government ID Numbers");
-        label.setFont(FontUtility.important());
+        JPanel tin = TextFieldUtility.textAndField("TIN", this.tin);
+        JPanel sss = TextFieldUtility.textAndField("SSS", this.sss);
+        JPanel philhealth = TextFieldUtility.textAndField("PhilHealth", this.philhealth);
+        JPanel pagibig = TextFieldUtility.textAndField("Pag-IBIG", this.pagibig);
 
-        JPanel tin = textAndField("TIN", this.tin);
-        JPanel sss = textAndField("SSS", this.sss);
-        JPanel philhealth = textAndField("PhilHealth", this.philhealth);
-        JPanel pagibig = textAndField("Pag-IBIG", this.pagibig);
-
-        label.setBounds(0,0,200,20);
         tin.setBounds(12,24,300,40);
         sss.setBounds(360,24,300,40);
         philhealth.setBounds(12,66,300,40);
         pagibig.setBounds(360,66,300,40);
 
-        panel.add(label);
         panel.add(tin);
         panel.add(sss);
         panel.add(philhealth);
@@ -199,39 +207,45 @@ public class AddNewEmployee {
         return EffectsUtility.marginedBoxText(panel, 12,0,ColorUtility.white);
     }
 
-    private JPanel salaryAndAllowances() {
-        JPanel panel = new JPanel();
+    private JPanel employmentDetails() {
+        JPanel panel = generalTemplate("Employment Details");
 
-        return panel;
+        JPanel status = TextFieldUtility.textAndComboBox("Status", this.status);
+        JPanel position = TextFieldUtility.textAndComboBox("Position", this.position);
+        JPanel immSupervisor = TextFieldUtility.textAndComboBox("Immediate Supervisor", this.immSupervisor);
+
+        status.setBounds(12,24,150,60);
+        position.setBounds(192,24,250,60);
+        immSupervisor.setBounds(472, 24, 250,60);
+
+        panel.add(status);
+        panel.add(position);
+        panel.add(immSupervisor);
+
+        return EffectsUtility.marginedBoxText(panel, 12, 12, ColorUtility.white);
     }
 
-    private JPanel textAndField(String text, int spacing, JTextField textField) {
+    private JPanel salaryAndAllowances() {
+        JPanel panel = generalTemplate("Salary & Allowances");
+
+        return EffectsUtility.marginedBoxText(panel, 12, 12, ColorUtility.white);
+    }
+
+
+
+    private JPanel generalTemplate(String title) {
         JPanel panel = new JPanel();
         panel.setBackground(ColorUtility.white);
-        panel.setLayout(new BorderLayout());
+        panel.setLayout(null);
 
+        JLabel label = new JLabel(title);
+        label.setFont(FontUtility.important());
+        label.setBounds(0,0,200,20);
 
-        JLabel label = new JLabel(text);
-        label.setFont(FontUtility.important(12));
-        label.setPreferredSize(new Dimension(spacing,30));
-
-        JPanel jTextField = EffectsUtility.searchField(textField);
-
-        jTextField.setAlignmentX(0);
-
-
-        panel.add(label, BorderLayout.WEST);
-        panel.add(jTextField, BorderLayout.CENTER);
+        panel.add(label);
 
         return panel;
     }
-
-    private JPanel textAndField(String text, JTextField textField) {
-        return textAndField(text, 72, textField);
-    }
-
-
-
 
 
 }
